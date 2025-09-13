@@ -49,6 +49,15 @@
     /* Tema */
     .day-theme { background: linear-gradient(135deg, #8e44ad, #ff69b4); }
     .night-theme { background: linear-gradient(135deg, #000000, #434343); }
+    /* Card khusus Withdrawal */
+    .card { background: rgba(255,255,255,0.08); border-radius: 10px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+    .card-header h2 { margin: 0 0 15px; }
+    .card-body label { display: block; margin-top: 10px; font-weight: bold; }
+    .card-body input, .card-body select { width: 100%; padding: 8px; margin-top: 5px; border-radius: 5px; border: none; }
+    .input-group { display: flex; gap: 5px; }
+    .input-group button { background: #ff69b4; border: none; padding: 8px 12px; border-radius: 5px; color: white; cursor: pointer; }
+    .btn-primary { background: #ff69b4; border: none; padding: 10px; border-radius: 5px; color: white; font-weight: bold; margin-top: 15px; cursor: pointer; }
+    .card-footer { font-size: 14px; margin-top: 15px; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 5px; }
   </style>
 </head>
 <body>
@@ -99,7 +108,7 @@
             <h2>Deposit USDT</h2>
             <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=TQ3HBNdVFmTFvz9wz3AR2Siss7MRN1fuRM" alt="QR USDT">
             <div class="wallet" id="usdtWallet">TQ3HBNdVFmTFvz9wz3AR2Siss7MRN1fuRM</div><br>
-            <button class="copy-btn" onclick="copyWallet('usdtWallet')">Copy Wallet</button>
+                        <button class="copy-btn" onclick="copyWallet('usdtWallet')">Copy Wallet</button>
             <div class="info-box">
               <strong>Jaringan:</strong> TRC20<br><br>
               <ul>
@@ -110,7 +119,8 @@
               </ul>
             </div>
           </div>
-                    <div class="deposit-section">
+
+          <div class="deposit-section">
             <h2>Deposit BossX</h2>
             <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=TTfKjrU18mi223ukVmz6FMNgBkma13kVA3" alt="QR BossX">
             <div class="wallet" id="bossxWallet">TTfKjrU18mi223ukVmz6FMNgBkma13kVA3</div><br>
@@ -173,43 +183,44 @@
       </section>
       <!-- Withdrawal -->
       <section id="withdraw" class="content">
-        <h1>Tarik USDT</h1>
-
-        <!-- Saldo -->
-        <p><strong>Saldo Tether USDt (USDT):</strong> 0 USDT</p>
-
-        <!-- Form Penarikan -->
-        <form id="withdrawForm" style="max-width:400px;margin-bottom:30px;">
-          <label>Metode Penarikan:</label>
-          <select style="width:100%;padding:8px;margin-bottom:10px;">
-            <option>Alamat</option>
-          </select>
-
-          <label>Alamat Penerima:</label>
-          <input type="text" id="recipient" style="width:100%;padding:8px;margin-bottom:10px;" placeholder="Masukkan alamat koin di sini">
-
-          <label>Jaringan:</label>
-          <select style="width:100%;padding:8px;margin-bottom:10px;">
-            <option>TRC20</option>
-          </select>
-
-          <label>Jumlah Tarik Koin:</label>
-          <div style="display:flex;gap:5px;margin-bottom:10px;">
-            <input type="number" id="amount" style="flex:1;padding:8px;" placeholder="Masukkan jumlah">
-            <button type="button" class="copy-btn" onclick="setMax()">Max</button>
+        <div class="card">
+          <div class="card-header">
+            <h2>Tarik USDT</h2>
           </div>
+          <div class="card-body">
+            <p><strong>Saldo Tether USDt (USDT):</strong> 0 USDT</p>
 
-          <button type="submit" class="copy-btn">Kirim Withdraw</button>
-        </form>
+            <form id="withdrawForm">
+              <label>Metode Penarikan:</label>
+              <select>
+                <option>Alamat</option>
+              </select>
 
-        <!-- Info Aturan & Biaya -->
-        <div class="info-box" style="max-width:400px;">
-          <ul>
-            <li>Maksimal pengiriman 60.000 USDT per hari. <a href="#" style="color:#ff69b4;">(untuk menaikkan limit, klik sini)</a></li>
-            <li>Minimal pengiriman 10 USDT.</li>
-            <li>Biaya 0,5 USDT dipotong dari jumlah pengiriman.</li>
-            <li>USDT akan masuk ke wallet Anda dalam 60 menit.</li>
-          </ul>
+              <label>Alamat Penerima:</label>
+              <input type="text" id="recipient" placeholder="Masukkan alamat koin di sini">
+
+              <label>Jaringan:</label>
+              <select>
+                <option>TRC20</option>
+              </select>
+
+              <label>Jumlah Tarik Koin:</label>
+              <div class="input-group">
+                <input type="number" id="amount" placeholder="Masukkan jumlah">
+                <button type="button" onclick="setMax()">Max</button>
+              </div>
+
+              <button type="submit" class="btn-primary">Kirim Withdraw</button>
+            </form>
+          </div>
+          <div class="card-footer">
+            <ul>
+              <li>Maksimal pengiriman 60.000 USDT per hari. <a href="#" style="color:#ff69b4;">(untuk menaikkan limit, klik sini)</a></li>
+              <li>Minimal pengiriman 10 USDT.</li>
+              <li>Biaya 0,5 USDT dipotong dari jumlah pengiriman.</li>
+              <li>USDT akan masuk ke wallet Anda dalam 60 menit.</li>
+            </ul>
+          </div>
         </div>
       </section>
       <!-- Section lain -->
