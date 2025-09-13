@@ -3,296 +3,192 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard - BossX</title>
+  <title>BossX - Dashboard & Deposit</title>
   <style>
     * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      color: white;
-    }
-    .container {
-      display: flex;
-      min-height: 100vh;
-      flex-direction: row;
-    }
+    body { margin: 0; font-family: 'Segoe UI', sans-serif; color: white; }
+    .container { display: flex; min-height: 100vh; }
     /* Sidebar */
-    .sidebar {
-      width: 250px;
-      padding: 30px 20px;
-      flex-shrink: 0;
-    }
-    .sidebar-header {
-      display: flex;
-      align-items: center;
-      margin-bottom: 40px;
-      margin-top: -5px;
-    }
-    .sidebar-header img {
-      width: 60px;
-      height: 60px;
-      border-radius: 8px;
-      margin-right: 10px;
-    }
-    .sidebar-header h2 {
-      margin: 0;
-      font-size: 22px;
-      font-weight: bold;
-    }
-    .sidebar a {
-      display: block;
-      color: white;
-      text-decoration: none;
-      margin: 12px 0;
-      font-weight: bold;
-    }
-    .sidebar a.active {
-      text-decoration: underline;
-    }
-    .sidebar a:hover {
-      opacity: 0.8;
-      padding-left: 10px;
-      transition: 0.3s;
-    }
-    /* Main Area */
-    .main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-    /* Header */
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 30px;
-    }
-    .clock {
-      font-size: 20px;
-      font-weight: bold;
-    }
-    .profile {
-      display: flex;
-      align-items: center;
-      text-align: right;
-    }
-    .profile img {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      margin-left: 15px;
-    }
-    .profile-info {
-      margin-left: 15px;
-    }
-    .profile-info h3 {
-      margin: 0;
-      font-size: 20px;
-      font-weight: bold;
-    }
-    .profile-info p {
-      margin: 2px 0 0;
-      font-size: 16px;
-      font-weight: bold;
-    }
-    /* Tombol Tema */
-    .theme-toggle {
-      background: none;
-      border: none;
-      color: white;
-      font-size: 26px;
-      cursor: pointer;
-      margin-right: 20px;
-    }
-    .theme-toggle:hover { opacity: 0.8; }
-    /* Running Text */
-    .running-text {
-      background: rgba(0,0,0,0.3);
-      padding: 8px;
-      font-weight: bold;
-      color: #fff;
-      border-bottom: 1px solid rgba(255,255,255,0.2);
-    }
-    /* Content */
-    .content {
-      padding: 30px;
-      flex: 1;
-    }
-    .card-row {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin-bottom: 30px;
-    }
-    .card {
-      flex: 1;
-      background: rgba(255,255,255,0.1);
-      padding: 20px;
-      border-radius: 10px;
-      min-width: 250px;
-      text-align: center;
-    }
-    .card h2 {
-      margin: 0 0 10px;
-    }
-    .quick-btn {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 8px 15px;
-      background: #ff69b4;
-      color: white;
-      border-radius: 5px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .quick-btn:hover {
-      background: #ff85c1;
-    }
-    /* Table */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background: rgba(255,255,255,0.1);
-      border-radius: 8px;
-      overflow: hidden;
-    }
-    th, td {
-      padding: 10px;
-      text-align: center;
-      border-bottom: 1px solid rgba(255,255,255,0.2);
-    }
-    th {
-      background: rgba(0,0,0,0.3);
-      font-weight: bold;
-    }
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 20px;
-    }
-    /* Tema Siang */
-    .day-theme {
-      background: linear-gradient(135deg, #8e44ad, #ff69b4);
-    }
-    /* Tema Malam */
-    .night-theme {
-      background: linear-gradient(135deg, #000000, #434343);
-    }
+    .sidebar { width: 250px; padding: 30px 20px; }
+    .sidebar-header { display: flex; align-items: center; margin-bottom: 40px; }
+    .sidebar-header img { width: 60px; height: 60px; border-radius: 8px; margin-right: 10px; }
+    .sidebar-header h2 { margin: 0; font-size: 22px; font-weight: bold; }
+    .sidebar a { display: block; color: white; text-decoration: none; margin: 12px 0; font-weight: bold; cursor: pointer; }
+    .sidebar a.active { text-decoration: underline; }
+    .sidebar a:hover { opacity: 0.8; padding-left: 10px; transition: 0.3s; }
+    /* Main */
+    .main { flex: 1; display: flex; flex-direction: column; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; }
+    .clock { font-size: 20px; font-weight: bold; }
+    .profile { display: flex; align-items: center; }
+    .profile img { width: 60px; height: 60px; border-radius: 50%; margin-left: 15px; }
+    .profile-info { margin-left: 15px; }
+    .profile-info h3 { margin: 0; font-size: 20px; font-weight: bold; }
+    .profile-info p { margin: 2px 0 0; font-size: 16px; font-weight: bold; }
+    .theme-toggle { background: none; border: none; color: white; font-size: 26px; cursor: pointer; margin-right: 20px; }
+    .running-text { background: rgba(0,0,0,0.3); padding: 8px; font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.2); }
+    .content { padding: 30px; flex: 1; }
+    .card-row { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 30px; }
+    .card { flex: 1; background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; min-width: 250px; text-align: center; }
+    .card h2 { margin: 0 0 10px; }
+    .quick-btn { display: inline-block; margin-top: 10px; padding: 8px 15px; background: #ff69b4; color: white; border-radius: 5px; text-decoration: none; font-weight: bold; }
+    .quick-btn:hover { background: #ff85c1; }
+    table { width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.1); border-radius: 8px; overflow: hidden; }
+    th, td { padding: 10px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.2); }
+    th { background: rgba(0,0,0,0.3); font-weight: bold; }
+    footer { text-align: center; padding: 20px; }
+    /* Deposit Section */
+    .deposit-section { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 30px; }
+    .deposit-card { flex: 1; background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; min-width: 300px; }
+    .wallet { background: rgba(0,0,0,0.3); padding: 10px; border-radius: 5px; word-break: break-all; }
+    .copy-btn { margin-top: 10px; padding: 8px 15px; background: #ff69b4; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    .copy-btn:hover { background: #ff85c1; }
+    /* Tema */
+    .day-theme { background: linear-gradient(135deg, #8e44ad, #ff69b4); }
+    .night-theme { background: linear-gradient(135deg, #000000, #434343); }
+    /* Section visibility */
+    section { display: none; }
+    section.active { display: block; }
   </style>
 </head>
-<body>
+<body class="day-theme" id="theme">
 
-  <div class="container day-theme" id="theme">
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <div class="sidebar-header">
-        <img src="https://i.ibb.co/qYBkPDH3/Picsart-25-04-01-16-25-47-054.png" alt="Logo BossX" />
-        <h2>BossX</h2>
+<div class="container">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <img src="https://i.ibb.co/qYBkPDH3/Picsart-25-04-01-16-25-47-054.png" alt="Logo BossX" />
+      <h2>BossX</h2>
+    </div>
+    <a onclick="showSection('dashboard')" class="active" id="menu-dashboard">Dashboard</a>
+    <a onclick="showSection('deposit')" id="menu-deposit">Deposit</a>
+    <a href="#">Withdrawal</a>
+    <a href="#">Peer to Peer</a>
+    <a href="#">FAQ</a>
+    <a href="#">Setting</a>
+    <a href="#">Logout</a>
+  </div>
+
+  <!-- Main -->
+  <div class="main">
+    <!-- Header -->
+    <div class="header">
+      <div class="clock" id="clock">Memuat waktu...</div>
+      <div style="display: flex; align-items: center;">
+        <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">🌙</button>
+        <div class="profile">
+          <div class="profile-info">
+            <h3>Fery Muliawan</h3>
+            <p>Validator ID: 8055x</p>
+          </div>
+          <img src="https://i.ibb.co/gbVsGLy0/FB-IMG-1617237754232.jpg" alt="Foto Fery" />
+        </div>
       </div>
-      <a href="index.html" class="active">Dashboard</a>
-      <a href="deposit.html">Deposit</a>
-      <a href="#">Withdrawal</a>
-      <a href="#">Peer to Peer</a>
-      <a href="#">FAQ</a>
-      <a href="#">Setting</a>
-      <a href="#">Logout</a>
     </div>
 
-    <!-- Main Area -->
-    <div class="main">
-      <!-- Header -->
-      <div class="header">
-        <div class="clock" id="clock">Memuat waktu...</div>
-        <div style="display: flex; align-items: center;">
-          <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">🌙</button>
-          <div class="profile">
-            <div class="profile-info">
-              <h3>Fery Muliawan</h3>
-              <p>Validator ID: 8055x</p>
-            </div>
-            <img src="https://i.ibb.co/gbVsGLy0/FB-IMG-1617237754232.jpg" alt="Foto Fery" />
-          </div>
+    <!-- Running Text -->
+    <div class="running-text">
+      <marquee behavior="scroll" direction="left" scrollamount="5">
+        Selamat datang di BossX Dashboard — Pantau saldo, transaksi, dan info terbaru di sini. Jangan lupa cek promo deposit bulan ini!
+      </marquee>
+    </div>
+
+    <!-- Dashboard Section -->
+    <section id="dashboard" class="active content">
+      <div class="card-row">
+        <div class="card">
+          <h2>Saldo USDT</h2>
+          <p>1,250 USDT</p>
+          <a onclick="showSection('deposit')" class="quick-btn">Deposit</a>
+        </div>
+        <div class="card">
+          <h2>Saldo BossX</h2>
+          <p>15,000 BOSSX</p>
+          <a onclick="showSection('deposit')" class="quick-btn">Deposit</a>
+        </div>
+      </div>
+      <h2>Riwayat Transaksi Terbaru</h2>
+      <table>
+        <tr><th>Tanggal</th><th>Jenis</th><th>Jumlah</th><th>Status</th></tr>
+        <tr><td>2025-09-12</td><td>Deposit USDT</td><td>50 USDT</td><td>Pending</td></tr>
+        <tr><td>2025-09-11</td><td>Deposit BossX</td><td>250 BOSSX</td><td>Sukses</td></tr>
+        <tr><td>2025-09-10</td><td>Deposit USDT</td><td>100 USDT</td><td>Sukses</td></tr>
+      </table>
+    </section>
+
+    <!-- Deposit Section -->
+    <section id="deposit" class="content">
+      <div class="deposit-section">
+        <div class="deposit-card">
+          <h2>Deposit USDT</h2>
+          <img src="https://i.ibb.co/qr-code-example.png" alt="QR USDT" width="150">
+          <div class="wallet"
+                <!-- Deposit Section -->
+    <section id="deposit" class="content">
+      <div class="deposit-section">
+        <div class="deposit-card">
+          <h2>Deposit USDT</h2>
+          <img src="https://i.ibb.co/qr-code-example.png" alt="QR USDT" width="150">
+          <div class="wallet" id="usdtWallet">0x1234abcd5678efgh9012ijkl3456mnop7890qrst</div>
+          <button class="copy-btn" onclick="copyWallet('usdtWallet')">Copy Wallet</button>
+        </div>
+
+        <div class="deposit-card">
+          <h2>Deposit BossX</h2>
+          <img src="https://i.ibb.co/qr-code-example.png" alt="QR BossX" width="150">
+          <div class="wallet" id="bossxWallet">0x9876abcd5432efgh1098ijkl7654mnop3210qrst</div>
+          <button class="copy-btn" onclick="copyWallet('bossxWallet')">Copy Wallet</button>
         </div>
       </div>
 
-      <!-- Running Text -->
-      <div class="running-text">
-        <marquee behavior="scroll" direction="left" scrollamount="5">
-          Selamat datang di BossX Dashboard — Pantau saldo, transaksi, dan info terbaru di sini. Jangan lupa cek promo deposit bulan ini!
-        </marquee>
-      </div>
-      <!-- Content -->
-      <div class="content">
-        <!-- Ringkasan Saldo -->
-        <div class="card-row">
-          <div class="card">
-            <h2>Saldo USDT</h2>
-            <p>1,250 USDT</p>
-            <a href="deposit.html" class="quick-btn">Deposit</a>
-          </div>
-          <div class="card">
-            <h2>Saldo BossX</h2>
-            <p>15,000 BOSSX</p>
-            <a href="deposit.html" class="quick-btn">Deposit</a>
-          </div>
-        </div>
+      <h2>Riwayat Deposit</h2>
+      <table>
+        <tr><th>Tanggal</th><th>Koin</th><th>Jumlah</th><th>Status</th></tr>
+        <tr><td>2025-09-12</td><td>USDT</td><td>50</td><td>Pending</td></tr>
+        <tr><td>2025-09-11</td><td>BossX</td><td>250</td><td>Sukses</td></tr>
+      </table>
+    </section>
 
-        <!-- Riwayat Transaksi Singkat -->
-        <h2>Riwayat Transaksi Terbaru</h2>
-        <table>
-          <tr>
-            <th>Tanggal</th>
-            <th>Jenis</th>
-            <th>Jumlah</th>
-            <th>Status</th>
-          </tr>
-          <tr>
-            <td>2025-09-12</td>
-            <td>Deposit USDT</td>
-            <td>50 USDT</td>
-            <td>Pending</td>
-          </tr>
-          <tr>
-            <td>2025-09-11</td>
-            <td>Deposit BossX</td>
-            <td>250 BOSSX</td>
-            <td>Sukses</td>
-          </tr>
-          <tr>
-            <td>2025-09-10</td>
-            <td>Deposit USDT</td>
-            <td>100 USDT</td>
-            <td>Sukses</td>
-          </tr>
-        </table>
-      </div>
+    <!-- Footer -->
+    <footer>
+      <p>© 2025 BossX. Dibuat oleh Fery Muliawan</p>
+    </footer>
+  </div>
+</div>
 
-      <!-- Footer -->
-      <footer>
-        <p>© 2025 BossX. Dibuat oleh Fery Muliawan</p>
-      </footer>
-    </div> <!-- penutup .main -->
-  </div> <!-- penutup .container -->
-  <script>
-    function updateClock() {
-      const now = new Date();
-      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-      const date = now.toLocaleDateString('id-ID', options);
-      const time = now.toLocaleTimeString('id-ID', { hour12: false });
-      document.getElementById('clock').textContent = `${date} | ${time}`;
-    }
+<script>
+function updateClock() {
+  const now = new Date();
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  const date = now.toLocaleDateString('id-ID', options);
+  const time = now.toLocaleTimeString('id-ID', { hour12: false });
+  document.getElementById('clock').textContent = `${date} | ${time}`;
+}
 
-    function toggleTheme() {
-      const themeElement = document.getElementById('theme');
-      const themeBtn = document.getElementById('themeBtn');
-      themeElement.classList.toggle('day-theme');
-      themeElement.classList.toggle('night-theme');
-      themeBtn.textContent = themeElement.classList.contains('night-theme') ? "🌞" : "🌙";
-    }
+function toggleTheme() {
+  const themeElement = document.getElementById('theme');
+  const themeBtn = document.getElementById('themeBtn');
+  themeElement.classList.toggle('day-theme');
+  themeElement.classList.toggle('night-theme');
+  themeBtn.textContent = themeElement.classList.contains('night-theme') ? "🌞" : "🌙";
+}
 
-    setInterval(updateClock, 1000);
-    updateClock();
-  </script>
+function copyWallet(id) {
+  const wallet = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(wallet);
+  alert("Wallet address copied: " + wallet);
+}
+
+function showSection(sectionId) {
+  document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
+  document.getElementById(sectionId).classList.add('active');
+  document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
+  document.getElementById('menu-' + sectionId).classList.add('active');
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+</script>
 
 </body>
 </html>
