@@ -3,198 +3,55 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Deposit - BossX</title>
+  <title>BossX</title>
   <style>
     * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      color: white;
-    }
-    .container {
-      display: flex;
-      min-height: 100vh;
-      flex-direction: row;
-    }
+    body { margin: 0; font-family: 'Segoe UI', sans-serif; color: white; }
+    .container { display: flex; min-height: 100vh; flex-direction: row; }
     /* Sidebar */
-    .sidebar {
-      width: 250px;
-      padding: 30px 20px;
-      flex-shrink: 0;
-    }
-    .sidebar-header {
-      display: flex;
-      align-items: center;
-      margin-bottom: 40px;
-      margin-top: -5px;
-    }
-    .sidebar-header img {
-      width: 60px;
-      height: 60px;
-      border-radius: 8px;
-      margin-right: 10px;
-    }
-    .sidebar-header h2 {
-      margin: 0;
-      font-size: 22px;
-      font-weight: bold;
-    }
-    .sidebar a {
-      display: block;
-      color: white;
-      text-decoration: none;
-      margin: 12px 0;
-      font-weight: bold;
-    }
-    .sidebar a.active {
-      text-decoration: underline;
-    }
-    .sidebar a:hover {
-      opacity: 0.8;
-      padding-left: 10px;
-      transition: 0.3s;
-    }
+    .sidebar { width: 250px; padding: 30px 20px; flex-shrink: 0; }
+    .sidebar-header { display: flex; align-items: center; margin-bottom: 40px; margin-top: -5px; }
+    .sidebar-header img { width: 60px; height: 60px; border-radius: 8px; margin-right: 10px; }
+    .sidebar-header h2 { margin: 0; font-size: 22px; font-weight: bold; }
+    .sidebar a { display: block; color: white; text-decoration: none; margin: 12px 0; font-weight: bold; cursor: pointer; }
+    .sidebar a.active { text-decoration: underline; }
+    .sidebar a:hover { opacity: 0.8; padding-left: 10px; transition: 0.3s; }
     /* Main Area */
-    .main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
+    .main { flex: 1; display: flex; flex-direction: column; }
     /* Header */
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 30px;
-    }
-    .clock {
-      font-size: 20px;
-      font-weight: bold;
-    }
-    .profile {
-      display: flex;
-      align-items: center;
-      text-align: right;
-    }
-    .profile img {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      margin-left: 15px;
-    }
-    .profile-info {
-      margin-left: 15px;
-    }
-    .profile-info h3 {
-      margin: 0;
-      font-size: 20px;
-      font-weight: bold;
-    }
-    .profile-info p {
-      margin: 2px 0 0;
-      font-size: 16px;
-      font-weight: bold;
-    }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; }
+    .clock { font-size: 20px; font-weight: bold; }
+    .profile { display: flex; align-items: center; text-align: right; }
+    .profile img { width: 60px; height: 60px; border-radius: 50%; margin-left: 15px; }
+    .profile-info { margin-left: 15px; }
+    .profile-info h3 { margin: 0; font-size: 20px; font-weight: bold; }
+    .profile-info p { margin: 2px 0 0; font-size: 16px; font-weight: bold; }
     /* Tombol Tema */
-    .theme-toggle {
-      background: none;
-      border: none;
-      color: white;
-      font-size: 26px;
-      cursor: pointer;
-      margin-right: 20px;
-    }
+    .theme-toggle { background: none; border: none; color: white; font-size: 26px; cursor: pointer; margin-right: 20px; }
     .theme-toggle:hover { opacity: 0.8; }
     /* Content */
-    .content {
-      padding: 40px;
-      flex: 1;
-    }
-    .deposit-row {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin-bottom: 40px;
-    }
-    .deposit-section {
-      flex: 1;
-      background: rgba(255,255,255,0.1);
-      padding: 20px;
-      border-radius: 10px;
-      text-align: center;
-      min-width: 280px;
-    }
-    .deposit-section img {
-      width: 200px;
-      height: 200px;
-      margin-bottom: 15px;
-    }
-    .wallet {
-      font-size: 16px;
-      background: rgba(0,0,0,0.3);
-      padding: 10px;
-      border-radius: 5px;
-      display: inline-block;
-      margin-bottom: 10px;
-      word-break: break-all;
-    }
-    .copy-btn {
-      background: #ff69b4;
-      border: none;
-      padding: 8px 15px;
-      border-radius: 5px;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .copy-btn:hover {
-      background: #ff85c1;
-    }
-    .info-box {
-      text-align: left;
-      font-size: 14px;
-      margin-top: 15px;
-      background: rgba(0,0,0,0.2);
-      padding: 10px;
-      border-radius: 5px;
-    }
+    .content { padding: 40px; flex: 1; display: none; }
+    .content.active { display: block; }
+    .deposit-row { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 40px; }
+    .deposit-section { flex: 1; background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; text-align: center; min-width: 280px; }
+    .deposit-section img { width: 200px; height: 200px; margin-bottom: 15px; }
+    .wallet { font-size: 16px; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 5px; display: inline-block; margin-bottom: 10px; word-break: break-all; }
+    .copy-btn { background: #ff69b4; border: none; padding: 8px 15px; border-radius: 5px; color: white; font-weight: bold; cursor: pointer; }
+    .copy-btn:hover { background: #ff85c1; }
+    .info-box { text-align: left; font-size: 14px; margin-top: 15px; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 5px; }
     /* History Table */
-    .history-section {
-      margin-bottom: 30px;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background: rgba(255,255,255,0.1);
-      border-radius: 8px;
-      overflow: hidden;
-    }
-    th, td {
-      padding: 10px;
-      text-align: center;
-      border-bottom: 1px solid rgba(255,255,255,0.2);
-    }
-    th {
-      background: rgba(0,0,0,0.3);
-      font-weight: bold;
-    }
+    .history-section { margin-bottom: 30px; }
+    table { width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.1); border-radius: 8px; overflow: hidden; }
+    th, td { padding: 10px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.2); }
+    th { background: rgba(0,0,0,0.3); font-weight: bold; }
     /* Footer */
-    footer {
-      text-align: center;
-      padding: 20px;
-    }
-    /* Tema Siang */
-    .day-theme {
-      background: linear-gradient(135deg, #8e44ad, #ff69b4);
-    }
-    /* Tema Malam */
-    .night-theme {
-      background: linear-gradient(135deg, #000000, #434343);
-    }
+    footer { text-align: center; padding: 20px; }
+    /* Tema */
+    .day-theme { background: linear-gradient(135deg, #8e44ad, #ff69b4); }
+    .night-theme { background: linear-gradient(135deg, #000000, #434343); }
   </style>
 </head>
 <body>
-
   <div class="container day-theme" id="theme">
     <!-- Sidebar -->
     <div class="sidebar">
@@ -202,12 +59,12 @@
         <img src="https://i.ibb.co/qYBkPDH3/Picsart-25-04-01-16-25-47-054.png" alt="Logo BossX" />
         <h2>BossX</h2>
       </div>
-      <a href="index.html">Dashboard</a>
-      <a href="deposit.html" class="active">Deposit</a>
-      <a href="#">Withdrawal</a>
-      <a href="#">Peer to Peer</a>
-      <a href="#">FAQ</a>
-      <a href="#">Setting</a>
+      <a id="menu-dashboard" onclick="showSection('dashboard')" class="active">Dashboard</a>
+      <a id="menu-deposit" onclick="showSection('deposit')">Deposit</a>
+      <a id="menu-withdraw" onclick="showSection('withdraw')">Withdrawal</a>
+      <a id="menu-p2p" onclick="showSection('p2p')">Peer to Peer</a>
+      <a id="menu-faq" onclick="showSection('faq')">FAQ</a>
+      <a id="menu-setting" onclick="showSection('setting')">Setting</a>
       <a href="#">Logout</a>
     </div>
 
@@ -228,8 +85,13 @@
         </div>
       </div>
 
-      <!-- Content -->
-      <div class="content">
+      <!-- Dashboard -->
+      <section id="dashboard" class="content active">
+        <h1>Dashboard</h1>
+        <p>Selamat datang di Dashboard BossX.</p>
+      </section>
+      <!-- Deposit -->
+      <section id="deposit" class="content">
         <h1>Halaman Deposit</h1>
 
         <!-- Deposit Horizontal -->
@@ -312,8 +174,27 @@
             </tr>
           </table>
         </div>
+      </section>
+      <!-- Section lain -->
+      <section id="withdraw" class="content">
+        <h1>Withdrawal</h1>
+        <p>Materi withdrawal akan ditambahkan di sini.</p>
+      </section>
 
-      </div> <!-- penutup .content -->
+      <section id="p2p" class="content">
+        <h1>Peer to Peer</h1>
+        <p>Materi P2P akan ditambahkan di sini.</p>
+      </section>
+
+      <section id="faq" class="content">
+        <h1>FAQ</h1>
+        <p>Materi FAQ akan ditambahkan di sini.</p>
+      </section>
+
+      <section id="setting" class="content">
+        <h1>Setting</h1>
+        <p>Materi pengaturan akan ditambahkan di sini.</p>
+      </section>
 
       <!-- Footer -->
       <footer>
@@ -344,6 +225,16 @@
       navigator.clipboard.writeText(walletText).then(() => {
         alert("Wallet address copied: " + walletText);
       });
+    }
+
+    function showSection(id) {
+      // Sembunyikan semua section
+      document.querySelectorAll('.content').forEach(sec => sec.classList.remove('active'));
+      // Tampilkan section yang dipilih
+      document.getElementById(id).classList.add('active');
+      // Update menu aktif
+      document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
+      document.getElementById('menu-' + id).classList.add('active');
     }
 
     setInterval(updateClock, 1000);
