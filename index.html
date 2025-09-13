@@ -8,8 +8,6 @@
     * { box-sizing: border-box; }
     body { margin: 0; font-family: 'Segoe UI', sans-serif; color: white; }
     .container { display: flex; min-height: 100vh; flex-direction: row; }
-
-    /* Sidebar */
     .sidebar { width: 250px; padding: 30px 20px; flex-shrink: 0; }
     .sidebar-header { display: flex; align-items: center; margin-bottom: 40px; margin-top: -5px; }
     .sidebar-header img { width: 60px; height: 60px; border-radius: 8px; margin-right: 10px; }
@@ -17,11 +15,7 @@
     .sidebar a { display: block; color: white; text-decoration: none; margin: 12px 0; font-weight: bold; cursor: pointer; }
     .sidebar a.active { text-decoration: underline; }
     .sidebar a:hover { opacity: 0.8; padding-left: 10px; transition: 0.3s; }
-
-    /* Main Area */
     .main { flex: 1; display: flex; flex-direction: column; }
-
-    /* Header */
     .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; }
     .clock { font-size: 20px; font-weight: bold; }
     .profile { display: flex; align-items: center; text-align: right; }
@@ -29,16 +23,10 @@
     .profile-info { margin-left: 15px; }
     .profile-info h3 { margin: 0; font-size: 20px; font-weight: bold; }
     .profile-info p { margin: 2px 0 0; font-size: 16px; font-weight: bold; }
-
-    /* Tombol Tema */
     .theme-toggle { background: none; border: none; color: white; font-size: 26px; cursor: pointer; margin-right: 20px; }
     .theme-toggle:hover { opacity: 0.8; }
-
-    /* Content */
     .content { padding: 40px; flex: 1; display: none; }
     .content.active { display: block; }
-
-    /* Deposit */
     .deposit-row { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 40px; }
     .deposit-section { flex: 1; background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; text-align: center; min-width: 280px; }
     .deposit-section img { width: 200px; height: 200px; margin-bottom: 15px; }
@@ -46,18 +34,12 @@
     .copy-btn { background: #ff69b4; border: none; padding: 8px 15px; border-radius: 5px; color: white; font-weight: bold; cursor: pointer; }
     .copy-btn:hover { background: #ff85c1; }
     .info-box { text-align: left; font-size: 14px; margin-top: 15px; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 5px; }
-
-    /* History Table */
     .history-section { margin-bottom: 30px; }
     table { width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.1); border-radius: 8px; overflow: hidden; }
     th, td { padding: 10px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.2); }
     th { background: rgba(0,0,0,0.3); font-weight: bold; }
-
-    /* Tema */
     .day-theme { background: linear-gradient(135deg, #8e44ad, #ff69b4); }
     .night-theme { background: linear-gradient(135deg, #000000, #434343); }
-
-    /* Card Layout */
     .card { background: rgba(255,255,255,0.08); border-radius: 10px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
     .card-header h2, .card-header h3 { margin: 0 0 15px; }
     .card-body label { display: block; margin-top: 10px; font-weight: bold; }
@@ -66,8 +48,6 @@
     .input-group button { background: #ff69b4; border: none; padding: 8px 12px; border-radius: 5px; color: white; cursor: pointer; }
     .btn-primary { background: #ff69b4; border: none; padding: 10px; border-radius: 5px; color: white; font-weight: bold; margin-top: 15px; cursor: pointer; }
     .card-footer { font-size: 14px; margin-top: 15px; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 5px; }
-
-    /* Status Animasi */
     .withdraw-status-pending { color: #ffcc00; animation: blink 1s infinite; }
     .withdraw-status-success { color: #00ff88; opacity: 0; animation: fadeIn 1s forwards; }
     @keyframes blink { 0%, 50%, 100% { opacity: 1; } 25%, 75% { opacity: 0.5; } }
@@ -112,6 +92,24 @@
       <section id="dashboard" class="content active">
         <h1>Dashboard</h1>
         <p>Selamat datang di Dashboard BossX.</p>
+
+        <!-- Card Aktivasi Node -->
+        <div class="card">
+          <div class="card-header">
+            <h2>Aktivasi Node</h2>
+          </div>
+          <div class="card-body">
+            <p><strong>Saldo Aktivasi:</strong> 0,0000000000 BOSSX</p>
+            <form id="nodeForm">
+              <label>Jumlah Aktivasi (minimal 10 BOSSX):</label>
+              <input type="number" id="nodeAmount" placeholder="Masukkan jumlah BOSSX" required>
+              <button type="submit" class="btn-primary">Aktivkan Validasi</button>
+            </form>
+          </div>
+          <div class="card-footer" id="nodeStatus">
+            Status: Belum Aktif
+          </div>
+        </div>
       </section>
       <!-- Deposit -->
       <section id="deposit" class="content">
@@ -179,7 +177,6 @@
           </table>
         </div>
       </section>
-
       <!-- Withdrawal -->
       <section id="withdraw" class="content">
         <div class="card">
@@ -400,6 +397,27 @@
       }, 5000);
 
       alert("Transfer berhasil dikirim ke " + username);
+    });
+
+    // Submit Aktivasi Node
+    document.getElementById('nodeForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const amount = parseFloat(document.getElementById('nodeAmount').value);
+      const statusBox = document.getElementById('nodeStatus');
+
+      if (isNaN(amount) || amount < 10) {
+        alert("Minimal aktivasi adalah 10 BOSSX");
+        return;
+      }
+
+      if (!confirm(`Yakin mau aktivasi node dengan ${amount} BOSSX?`)) return;
+
+      statusBox.innerHTML = "Status: <span class='withdraw-status-pending'>Memproses...</span>";
+
+      setTimeout(() => {
+        statusBox.innerHTML = "Status: <span class='withdraw-status-success'>Aktif ✅</span>";
+        alert("Node berhasil diaktivasi!");
+      }, 4000);
     });
 
     // Jalankan jam real-time
