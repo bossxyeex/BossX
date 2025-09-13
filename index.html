@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Deposit - BossX</title>
+  <title>Dashboard - BossX</title>
   <style>
     * { box-sizing: border-box; }
     body {
@@ -105,63 +105,50 @@
       margin-right: 20px;
     }
     .theme-toggle:hover { opacity: 0.8; }
+    /* Running Text */
+    .running-text {
+      background: rgba(0,0,0,0.3);
+      padding: 8px;
+      font-weight: bold;
+      color: #fff;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
     /* Content */
     .content {
-      padding: 40px;
+      padding: 30px;
       flex: 1;
     }
-    .deposit-row {
+    .card-row {
       display: flex;
       gap: 20px;
       flex-wrap: wrap;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
     }
-    .deposit-section {
+    .card {
       flex: 1;
       background: rgba(255,255,255,0.1);
       padding: 20px;
       border-radius: 10px;
+      min-width: 250px;
       text-align: center;
-      min-width: 280px;
     }
-    .deposit-section img {
-      width: 200px;
-      height: 200px;
-      margin-bottom: 15px;
+    .card h2 {
+      margin: 0 0 10px;
     }
-    .wallet {
-      font-size: 16px;
-      background: rgba(0,0,0,0.3);
-      padding: 10px;
-      border-radius: 5px;
+    .quick-btn {
       display: inline-block;
-      margin-bottom: 10px;
-      word-break: break-all;
-    }
-    .copy-btn {
-      background: #ff69b4;
-      border: none;
+      margin-top: 10px;
       padding: 8px 15px;
-      border-radius: 5px;
+      background: #ff69b4;
       color: white;
+      border-radius: 5px;
+      text-decoration: none;
       font-weight: bold;
-      cursor: pointer;
     }
-    .copy-btn:hover {
+    .quick-btn:hover {
       background: #ff85c1;
     }
-    .info-box {
-      text-align: left;
-      font-size: 14px;
-      margin-top: 15px;
-      background: rgba(0,0,0,0.2);
-      padding: 10px;
-      border-radius: 5px;
-    }
-    /* History Table */
-    .history-section {
-      margin-bottom: 30px;
-    }
+    /* Table */
     table {
       width: 100%;
       border-collapse: collapse;
@@ -202,8 +189,8 @@
         <img src="https://i.ibb.co/qYBkPDH3/Picsart-25-04-01-16-25-47-054.png" alt="Logo BossX" />
         <h2>BossX</h2>
       </div>
-      <a href="index.html">Dashboard</a>
-      <a href="deposit.html" class="active">Deposit</a>
+      <a href="index.html" class="active">Dashboard</a>
+      <a href="deposit.html">Deposit</a>
       <a href="#">Withdrawal</a>
       <a href="#">Peer to Peer</a>
       <a href="#">FAQ</a>
@@ -228,92 +215,57 @@
         </div>
       </div>
 
+      <!-- Running Text -->
+      <div class="running-text">
+        <marquee behavior="scroll" direction="left" scrollamount="5">
+          Selamat datang di BossX Dashboard — Pantau saldo, transaksi, dan info terbaru di sini. Jangan lupa cek promo deposit bulan ini!
+        </marquee>
+      </div>
       <!-- Content -->
       <div class="content">
-        <h1>Halaman Deposit</h1>
-
-        <!-- Deposit Horizontal -->
-        <div class="deposit-row">
-          <!-- Deposit USDT -->
-          <div class="deposit-section">
-            <h2>Deposit USDT</h2>
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=TQ3HBNdVFmTFvz9wz3AR2Siss7MRN1fuRM" alt="QR USDT">
-            <div class="wallet" id="usdtWallet">TQ3HBNdVFmTFvz9wz3AR2Siss7MRN1fuRM</div><br>
-            <button class="copy-btn" onclick="copyWallet('usdtWallet')">Copy Wallet</button>
-            <div class="info-box">
-              <strong>Jaringan:</strong> TRC20<br><br>
-              <ul>
-                <li>Alamat ini khusus untuk Anda dan dapat digunakan berulang kali (alamat Tron / TRC20).</li>
-                <li>Deposit akan masuk setelah 20 konfirmasi.</li>
-                <li>Deposit tidak dikenakan biaya.</li>
-                <li>Mengirim token selain USDT ke alamat ini akan menyebabkan token tersebut hilang.</li>
-              </ul>
-            </div>
+        <!-- Ringkasan Saldo -->
+        <div class="card-row">
+          <div class="card">
+            <h2>Saldo USDT</h2>
+            <p>1,250 USDT</p>
+            <a href="deposit.html" class="quick-btn">Deposit</a>
           </div>
-
-          <!-- Deposit BossX -->
-          <div class="deposit-section">
-            <h2>Deposit BossX</h2>
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=TTfKjrU18mi223ukVmz6FMNgBkma13kVA3" alt="QR BossX">
-            <div class="wallet" id="bossxWallet">TTfKjrU18mi223ukVmz6FMNgBkma13kVA3</div><br>
-            <button class="copy-btn" onclick="copyWallet('bossxWallet')">Copy Wallet</button>
-            <div class="info-box">
-              <strong>Jaringan:</strong> TRC20<br><br>
-              <ul>
-                <li>Alamat ini khusus untuk Anda dan dapat digunakan berulang kali (alamat Tron / TRC20).</li>
-                <li>Deposit akan masuk setelah 20 konfirmasi.</li>
-                <li>Deposit tidak dikenakan biaya.</li>
-                <li>Mengirim token selain BossX ke alamat ini akan menyebabkan token tersebut hilang.</li>
-              </ul>
-            </div>
+          <div class="card">
+            <h2>Saldo BossX</h2>
+            <p>15,000 BOSSX</p>
+            <a href="deposit.html" class="quick-btn">Deposit</a>
           </div>
         </div>
 
-        <!-- History USDT -->
-        <div class="history-section">
-          <h2>History Deposit USDT</h2>
-          <table>
-            <tr>
-              <th>Tanggal</th>
-              <th>Jumlah</th>
-              <th>Status</th>
-            </tr>
-            <tr>
-              <td>2025-09-10</td>
-              <td>100 USDT</td>
-              <td>Sukses</td>
-            </tr>
-            <tr>
-              <td>2025-09-12</td>
-              <td>50 USDT</td>
-              <td>Pending</td>
-            </tr>
-          </table>
-        </div>
-
-        <!-- History BossX -->
-        <div class="history-section">
-          <h2>History Deposit BossX</h2>
-          <table>
-            <tr>
-              <th>Tanggal</th>
-              <th>Jumlah</th>
-              <th>Status</th>
-            </tr>
-            <tr>
-              <td>2025-09-08</td>
-              <td>500 BOSSX</td>
-              <td>Sukses</td>
-            </tr>
-            <tr>
-              <td>2025-09-11</td>
-              <td>250 BOSSX</td>
-              <td>Pending</td>
-            </tr>
-          </table>
-        </div>
-
-      </div> <!-- penutup .content -->
+        <!-- Riwayat Transaksi Singkat -->
+        <h2>Riwayat Transaksi Terbaru</h2>
+        <table>
+          <tr>
+            <th>Tanggal</th>
+            <th>Jenis</th>
+            <th>Jumlah</th>
+            <th>Status</th>
+          </tr>
+          <tr>
+            <td>2025-09-12</td>
+            <td>Deposit USDT</td>
+            <td>50 USDT</td>
+            <td>Pending</td>
+          </tr>
+          <tr>
+            <td>2025-09-11</td>
+            <td>Deposit BossX</td>
+            <td>250 BOSSX</td>
+            <td>Sukses</td>
+          </tr>
+          <tr>
+            <td>2025-09-10</td>
+            <td>Deposit USDT</td>
+            <td>100 USDT</td>
+            <td>Sukses</td>
+          </tr>
+        </table>
+      </div>
 
       <!-- Footer -->
       <footer>
@@ -321,7 +273,6 @@
       </footer>
     </div> <!-- penutup .main -->
   </div> <!-- penutup .container -->
-
   <script>
     function updateClock() {
       const now = new Date();
@@ -337,13 +288,6 @@
       themeElement.classList.toggle('day-theme');
       themeElement.classList.toggle('night-theme');
       themeBtn.textContent = themeElement.classList.contains('night-theme') ? "🌞" : "🌙";
-    }
-
-    function copyWallet(id) {
-      const walletText = document.getElementById(id).textContent;
-      navigator.clipboard.writeText(walletText).then(() => {
-        alert("Wallet address copied: " + walletText);
-      });
     }
 
     setInterval(updateClock, 1000);
