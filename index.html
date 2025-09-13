@@ -87,28 +87,38 @@ section.active{display:block}
       </marquee>
     </div>
 
-    <!-- Dashboard Section (kosong sesuai permintaan) -->
+    <!-- Dashboard Section -->
     <section id="dashboard" class="active content">
       <h2>Dashboard</h2>
       <p>Selamat datang di BossX Dashboard. Pilih menu di sidebar untuk melihat materi.</p>
     </section>
-    <!-- Deposit Section -->
+    <!-- Deposit Section (versi lengkap) -->
     <section id="deposit" class="content">
       <h2>Deposit</h2>
       <div class="deposit-section">
+        <!-- USDT -->
         <div class="deposit-card">
           <h2>Deposit USDT</h2>
           <img src="https://i.ibb.co/qr-code-example.png" alt="QR USDT" width="150">
           <div class="wallet" id="usdtWallet">0x1234abcd5678efgh9012ijkl3456mnop7890qrst</div>
           <button class="copy-btn" onclick="copyWallet('usdtWallet')">Copy Wallet</button>
+          <p style="margin-top:10px;font-size:14px;">
+            Kirim USDT ke alamat di atas. Pastikan jaringan yang digunakan adalah TRC20.
+          </p>
         </div>
+
+        <!-- BossX -->
         <div class="deposit-card">
           <h2>Deposit BossX</h2>
           <img src="https://i.ibb.co/qr-code-example.png" alt="QR BossX" width="150">
           <div class="wallet" id="bossxWallet">0x9876abcd5432efgh1098ijkl7654mnop3210qrst</div>
           <button class="copy-btn" onclick="copyWallet('bossxWallet')">Copy Wallet</button>
+          <p style="margin-top:10px;font-size:14px;">
+            Kirim BossX ke alamat di atas. Gunakan jaringan resmi BossX untuk menghindari kehilangan aset.
+          </p>
         </div>
       </div>
+
       <h2>Riwayat Deposit</h2>
       <table>
         <tr><th>Tanggal</th><th>Koin</th><th>Jumlah</th><th>Status</th></tr>
