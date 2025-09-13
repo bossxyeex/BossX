@@ -5,21 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Deposit - BossX</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
       color: white;
     }
-
     .container {
       display: flex;
       min-height: 100vh;
       flex-direction: row;
     }
-
     /* Sidebar */
     .sidebar {
       width: 250px;
@@ -58,14 +54,12 @@
       padding-left: 10px;
       transition: 0.3s;
     }
-
     /* Main Area */
     .main {
       flex: 1;
       display: flex;
       flex-direction: column;
     }
-
     /* Header */
     .header {
       display: flex;
@@ -101,7 +95,6 @@
       font-size: 16px;
       font-weight: bold;
     }
-
     /* Tombol Tema */
     .theme-toggle {
       background: none;
@@ -111,47 +104,30 @@
       cursor: pointer;
       margin-right: 20px;
     }
-    .theme-toggle:hover {
-      opacity: 0.8;
-    }
-
+    .theme-toggle:hover { opacity: 0.8; }
     /* Content */
     .content {
       padding: 40px;
       flex: 1;
     }
-
     /* Footer */
     footer {
       text-align: center;
       padding: 20px;
     }
-
     /* Tema Siang */
     .day-theme {
       background: linear-gradient(135deg, #8e44ad, #ff69b4);
     }
-
     /* Tema Malam */
     .night-theme {
       background: linear-gradient(135deg, #000000, #434343);
     }
-
     @media (max-width: 768px) {
-      .container {
-        flex-direction: column;
-      }
-      .sidebar {
-        width: 100%;
-        text-align: center;
-      }
-      .header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .content {
-        padding: 20px;
-      }
+      .container { flex-direction: column; }
+      .sidebar { width: 100%; text-align: center; }
+      .header { flex-direction: column; align-items: flex-start; }
+      .content { padding: 20px; }
     }
   </style>
 </head>
@@ -164,7 +140,6 @@
         <img src="https://i.ibb.co/qYBkPDH3/Picsart-25-04-01-16-25-47-054.png" alt="Logo BossX" />
         <h2>BossX</h2>
       </div>
-
       <a href="index.html">Dashboard</a>
       <a href="deposit.html" class="active">Deposit</a>
       <a href="#">Withdrawal</a>
@@ -212,20 +187,13 @@
       const time = now.toLocaleTimeString('id-ID', { hour12: false });
       document.getElementById('clock').textContent = `${date} | ${time}`;
     }
-
     function toggleTheme() {
       const themeElement = document.getElementById('theme');
       const themeBtn = document.getElementById('themeBtn');
       themeElement.classList.toggle('day-theme');
       themeElement.classList.toggle('night-theme');
-
-      if (themeElement.classList.contains('night-theme')) {
-        themeBtn.textContent = "🌞";
-      } else {
-        themeBtn.textContent = "🌙";
-      }
+      themeBtn.textContent = themeElement.classList.contains('night-theme') ? "🌞" : "🌙";
     }
-
     setInterval(updateClock, 1000);
     updateClock();
   </script>
