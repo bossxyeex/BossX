@@ -32,32 +32,9 @@
     /* Content */
     .content { padding: 40px; flex: 1; display: none; }
     .content.active { display: block; }
-    .deposit-row { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 40px; }
-    .deposit-section { flex: 1; background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; text-align: center; min-width: 280px; }
-    .deposit-section img { width: 200px; height: 200px; margin-bottom: 15px; }
-    .wallet { font-size: 16px; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 5px; display: inline-block; margin-bottom: 10px; word-break: break-all; }
-    .copy-btn { background: #ff69b4; border: none; padding: 8px 15px; border-radius: 5px; color: white; font-weight: bold; cursor: pointer; }
-    .copy-btn:hover { background: #ff85c1; }
-    .info-box { text-align: left; font-size: 14px; margin-top: 15px; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 5px; }
-    /* History Table */
-    .history-section { margin-bottom: 30px; }
-    table { width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.1); border-radius: 8px; overflow: hidden; }
-    th, td { padding: 10px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.2); }
-    th { background: rgba(0,0,0,0.3); font-weight: bold; }
-    /* Footer */
-    footer { text-align: center; padding: 20px; }
     /* Tema */
     .day-theme { background: linear-gradient(135deg, #8e44ad, #ff69b4); }
     .night-theme { background: linear-gradient(135deg, #000000, #434343); }
-    /* Card khusus Withdrawal */
-    .card { background: rgba(255,255,255,0.08); border-radius: 10px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-    .card-header h2 { margin: 0 0 15px; }
-    .card-body label { display: block; margin-top: 10px; font-weight: bold; }
-    .card-body input, .card-body select { width: 100%; padding: 8px; margin-top: 5px; border-radius: 5px; border: none; }
-    .input-group { display: flex; gap: 5px; }
-    .input-group button { background: #ff69b4; border: none; padding: 8px 12px; border-radius: 5px; color: white; cursor: pointer; }
-    .btn-primary { background: #ff69b4; border: none; padding: 10px; border-radius: 5px; color: white; font-weight: bold; margin-top: 15px; cursor: pointer; }
-    .card-footer { font-size: 14px; margin-top: 15px; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 5px; }
   </style>
 </head>
 <body>
@@ -99,16 +76,16 @@
         <h1>Dashboard</h1>
         <p>Selamat datang di Dashboard BossX.</p>
       </section>
-
       <!-- Deposit -->
       <section id="deposit" class="content">
         <h1>Halaman Deposit</h1>
         <div class="deposit-row">
+          <!-- Deposit USDT -->
           <div class="deposit-section">
             <h2>Deposit USDT</h2>
             <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=TQ3HBNdVFmTFvz9wz3AR2Siss7MRN1fuRM" alt="QR USDT">
             <div class="wallet" id="usdtWallet">TQ3HBNdVFmTFvz9wz3AR2Siss7MRN1fuRM</div><br>
-                        <button class="copy-btn" onclick="copyWallet('usdtWallet')">Copy Wallet</button>
+            <button class="copy-btn" onclick="copyWallet('usdtWallet')">Copy Wallet</button>
             <div class="info-box">
               <strong>Jaringan:</strong> TRC20<br><br>
               <ul>
@@ -120,6 +97,7 @@
             </div>
           </div>
 
+          <!-- Deposit BossX -->
           <div class="deposit-section">
             <h2>Deposit BossX</h2>
             <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=TTfKjrU18mi223ukVmz6FMNgBkma13kVA3" alt="QR BossX">
@@ -222,18 +200,43 @@
             </ul>
           </div>
         </div>
+
+        <!-- History Penarikan -->
+        <div class="card">
+          <div class="card-header">
+            <h3>History Penarikan USDT</h3>
+          </div>
+          <div class="card-body">
+            <table id="withdrawHistory" style="width:100%;border-collapse:collapse;">
+              <thead>
+                <tr>
+                  <th>Hari</th>
+                  <th>Tanggal</th>
+                  <th>Jam</th>
+                  <th>Jumlah</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Data akan muncul di sini -->
+              </tbody>
+            </table>
+          </div>
+        </div>
       </section>
-      <!-- Section lain -->
+      <!-- P2P -->
       <section id="p2p" class="content">
         <h1>Peer to Peer</h1>
         <p>Materi P2P akan ditambahkan di sini.</p>
       </section>
 
+      <!-- FAQ -->
       <section id="faq" class="content">
         <h1>FAQ</h1>
         <p>Materi FAQ akan ditambahkan di sini.</p>
       </section>
 
+      <!-- Setting -->
       <section id="setting" class="content">
         <h1>Setting</h1>
         <p>Materi pengaturan akan ditambahkan di sini.</p>
@@ -245,8 +248,8 @@
       </footer>
     </div> <!-- penutup .main -->
   </div> <!-- penutup .container -->
-
   <script>
+    // Update jam real-time
     function updateClock() {
       const now = new Date();
       const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -255,6 +258,7 @@
       document.getElementById('clock').textContent = `${date} | ${time}`;
     }
 
+    // Ganti tema siang/malam
     function toggleTheme() {
       const themeElement = document.getElementById('theme');
       const themeBtn = document.getElementById('themeBtn');
@@ -263,6 +267,7 @@
       themeBtn.textContent = themeElement.classList.contains('night-theme') ? "🌞" : "🌙";
     }
 
+    // Copy wallet address
     function copyWallet(id) {
       const walletText = document.getElementById(id).textContent;
       navigator.clipboard.writeText(walletText).then(() => {
@@ -270,6 +275,7 @@
       });
     }
 
+    // Navigasi antar section
     function showSection(id) {
       document.querySelectorAll('.content').forEach(sec => sec.classList.remove('active'));
       document.getElementById(id).classList.add('active');
@@ -277,7 +283,12 @@
       document.getElementById('menu-' + id).classList.add('active');
     }
 
-    // Validasi minimal 10 USDT di Withdrawal
+    // Set jumlah max (contoh saldo dummy)
+    function setMax() {
+      document.getElementById('amount').value = 100;
+    }
+
+    // Form Withdrawal dengan validasi, konfirmasi, history, animasi
     document.getElementById('withdrawForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const amount = parseFloat(document.getElementById('amount').value);
@@ -285,17 +296,41 @@
         alert("Minimal penarikan adalah 10 USDT");
         return;
       }
-      alert("Permintaan penarikan berhasil dikirim: " + amount + " USDT");
+
+      const yakin = confirm(`Yakin mau tarik ${amount} USDT?`);
+      if (!yakin) return;
+
+      const now = new Date();
+      const hari = now.toLocaleDateString('id-ID', { weekday: 'long' });
+      const tanggal = now.toLocaleDateString('id-ID');
+      const jam = now.toLocaleTimeString('id-ID');
+
+      const tbody = document.querySelector('#withdrawHistory tbody');
+      const row = document.createElement('tr');
+
+      row.innerHTML = `
+        <td>${hari}</td>
+        <td>${tanggal}</td>
+        <td>${jam}</td>
+        <td>${amount} USDT</td>
+        <td class="withdraw-status-pending">Pending</td>
+      `;
+      tbody.prepend(row);
+
+      // Ubah status jadi sukses setelah 5 detik
+      setTimeout(() => {
+        const statusCell = row.querySelector('td:last-child');
+        statusCell.classList.remove('withdraw-status-pending');
+        statusCell.classList.add('withdraw-status-success');
+        statusCell.textContent = "Sukses";
+      }, 5000);
+
+      alert("Permintaan penarikan berhasil dikirim!");
     });
 
-    function setMax() {
-      // Nanti bisa diisi saldo real dari backend
-      document.getElementById('amount').value = 100;
-    }
-
+    // Jalankan jam real-time
     setInterval(updateClock, 1000);
     updateClock();
   </script>
-
 </body>
 </html>
