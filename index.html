@@ -150,6 +150,14 @@
     .copy-btn:hover {
       background: #ff85c1;
     }
+    .info-box {
+      text-align: left;
+      font-size: 14px;
+      margin-top: 15px;
+      background: rgba(0,0,0,0.2);
+      padding: 10px;
+      border-radius: 5px;
+    }
     /* History Table */
     .history-section {
       margin-bottom: 30px;
@@ -232,13 +240,22 @@
             <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=TQ3HBNdVFmTFvz9wz3AR2Siss7MRN1fuRM" alt="QR USDT">
             <div class="wallet" id="usdtWallet">TQ3HBNdVFmTFvz9wz3AR2Siss7MRN1fuRM</div><br>
             <button class="copy-btn" onclick="copyWallet('usdtWallet')">Copy Wallet</button>
+            <div class="info-box">
+              <strong>Jaringan:</strong> TRC20<br><br>
+              <ul>
+                <li>Alamat ini khusus untuk Anda dan dapat digunakan berulang kali (alamat Tron / TRC20).</li>
+                <li>Deposit akan masuk setelah 20 konfirmasi.</li>
+                <li>Deposit tidak dikenakan biaya.</li>
+                <li>Mengirim token selain USDT ke alamat ini akan menyebabkan token tersebut hilang.</li>
+              </ul>
+            </div>
           </div>
 
           <!-- Deposit BossX -->
           <div class="deposit-section">
             <h2>Deposit BossX</h2>
             <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=TTfKjrU18mi223ukVmz6FMNgBkma13kVA3" alt="QR BossX">
-            <div class="wallet" id="bossxWallet">TTfKjrU18mi223ukVmz6FMNgBkma13kVA3</div><br>
+                        <div class="wallet" id="bossxWallet">TTfKjrU18mi223ukVmz6FMNgBkma13kVA3</div><br>
             <button class="copy-btn" onclick="copyWallet('bossxWallet')">Copy Wallet</button>
           </div>
         </div>
@@ -264,6 +281,7 @@
             </tr>
           </table>
         </div>
+
         <!-- History BossX -->
         <div class="history-section">
           <h2>History Deposit BossX</h2>
