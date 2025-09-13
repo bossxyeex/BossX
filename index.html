@@ -32,9 +32,36 @@
     /* Content */
     .content { padding: 40px; flex: 1; display: none; }
     .content.active { display: block; }
+    /* Deposit */
+    .deposit-row { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 40px; }
+    .deposit-section { flex: 1; background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; text-align: center; min-width: 280px; }
+    .deposit-section img { width: 200px; height: 200px; margin-bottom: 15px; }
+    .wallet { font-size: 16px; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 5px; display: inline-block; margin-bottom: 10px; word-break: break-all; }
+    .copy-btn { background: #ff69b4; border: none; padding: 8px 15px; border-radius: 5px; color: white; font-weight: bold; cursor: pointer; }
+    .copy-btn:hover { background: #ff85c1; }
+    .info-box { text-align: left; font-size: 14px; margin-top: 15px; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 5px; }
+    /* History Table */
+    .history-section { margin-bottom: 30px; }
+    table { width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.1); border-radius: 8px; overflow: hidden; }
+    th, td { padding: 10px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.2); }
+    th { background: rgba(0,0,0,0.3); font-weight: bold; }
     /* Tema */
     .day-theme { background: linear-gradient(135deg, #8e44ad, #ff69b4); }
     .night-theme { background: linear-gradient(135deg, #000000, #434343); }
+    /* Card khusus Withdrawal */
+    .card { background: rgba(255,255,255,0.08); border-radius: 10px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+    .card-header h2, .card-header h3 { margin: 0 0 15px; }
+    .card-body label { display: block; margin-top: 10px; font-weight: bold; }
+    .card-body input, .card-body select { width: 100%; padding: 8px; margin-top: 5px; border-radius: 5px; border: none; }
+    .input-group { display: flex; gap: 5px; }
+    .input-group button { background: #ff69b4; border: none; padding: 8px 12px; border-radius: 5px; color: white; cursor: pointer; }
+    .btn-primary { background: #ff69b4; border: none; padding: 10px; border-radius: 5px; color: white; font-weight: bold; margin-top: 15px; cursor: pointer; }
+    .card-footer { font-size: 14px; margin-top: 15px; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 5px; }
+    /* Animasi status */
+    .withdraw-status-pending { color: #ffcc00; animation: blink 1s infinite; }
+    .withdraw-status-success { color: #00ff88; opacity: 0; animation: fadeIn 1s forwards; }
+    @keyframes blink { 0%, 50%, 100% { opacity: 1; } 25%, 75% { opacity: 0.5; } }
+    @keyframes fadeIn { to { opacity: 1; } }
   </style>
 </head>
 <body>
@@ -71,127 +98,103 @@
         </div>
       </div>
 
-      <!-- Dashboard -->
+           <!-- Dashboard -->
       <section id="dashboard" class="content active">
         <h1>Dashboard</h1>
         <p>Selamat datang di Dashboard BossX.</p>
       </section>
+
       <!-- Deposit -->
       <section id="deposit" class="content">
         <h1>Halaman Deposit</h1>
         <div class="deposit-row">
+          <!-- Deposit USDT -->
           <div class="deposit-section">
             <h2>Deposit USDT</h2>
             <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=TQ3HBNdVFmTFvz9wz3AR2Siss7MRN1fuRM" alt="QR USDT">
-            <div class="wallet" id="usdtWallet">TQ3HBNdVFmTFvz9wz3AR2Siss7MRN1fuRM</div><br>
-                        <button class="copy-btn" onclick="copyWallet('usdtWallet')">Copy Wallet</button>
+            <div class="wallet" id="usdtWallet">TQ3HBNdVFmTFvz9wz3AR2Siss7MRN1fuRM</div>
+            <button class="copy-btn" onclick="copyWallet('usdtWallet')">Copy Wallet</button>
             <div class="info-box">
-              <strong>Jaringan:</strong> TRC20<br><br>
+              <strong>Catatan:</strong>
               <ul>
-                <li>Alamat ini khusus untuk Anda dan dapat digunakan berulang kali (alamat Tron / TRC20).</li>
-                <li>Deposit akan masuk setelah 20 konfirmasi.</li>
-                <li>Deposit tidak dikenakan biaya.</li>
-                <li>Mengirim token selain USDT ke alamat ini akan menyebabkan token tersebut hilang.</li>
+                <li>Hanya kirim USDT melalui jaringan TRC20</li>
+                <li>Deposit akan masuk setelah 1x konfirmasi dan dapat digunakan berulang kali (alamat fixed TRC20)</li>
+                <li>Deposit di bawah minimum tidak akan masuk</li>
+                <li>Deposit hanya bisa dilakukan melalui alamat di atas dan akan menghasilkan token BossX</li>
               </ul>
             </div>
           </div>
 
+          <!-- Deposit BossX -->
           <div class="deposit-section">
             <h2>Deposit BossX</h2>
             <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=TTfKjrU18mi223ukVmz6FMNgBkma13kVA3" alt="QR BossX">
-            <div class="wallet" id="bossxWallet">TTfKjrU18mi223ukVmz6FMNgBkma13kVA3</div><br>
+            <div class="wallet" id="bossxWallet">TTfKjrU18mi223ukVmz6FMNgBkma13kVA3</div>
             <button class="copy-btn" onclick="copyWallet('bossxWallet')">Copy Wallet</button>
             <div class="info-box">
-              <strong>Jaringan:</strong> TRC20<br><br>
+              <strong>Catatan:</strong>
               <ul>
-                <li>Alamat ini khusus untuk Anda dan dapat digunakan berulang kali (alamat Tron / TRC20).</li>
-                <li>Deposit akan masuk setelah 20 konfirmasi.</li>
-                <li>Deposit tidak dikenakan biaya.</li>
-                <li>Mengirim token selain BossX ke alamat ini akan menyebabkan token tersebut hilang.</li>
+                <li>Hanya kirim BossX melalui jaringan TRC20</li>
+                <li>Deposit akan masuk setelah 1x konfirmasi dan dapat digunakan berulang kali (alamat fixed TRC20)</li>
+                <li>Deposit di bawah minimum tidak akan masuk</li>
+                <li>Deposit hanya bisa dilakukan melalui alamat di atas</li>
               </ul>
             </div>
           </div>
         </div>
 
-        <!-- History USDT -->
+        <!-- History Deposit -->
         <div class="history-section">
           <h2>History Deposit USDT</h2>
           <table>
-            <tr>
-              <th>Tanggal</th>
-              <th>Jumlah</th>
-              <th>Status</th>
-            </tr>
-            <tr>
-              <td>2025-09-10</td>
-              <td>100 USDT</td>
-              <td>Sukses</td>
-            </tr>
-            <tr>
-              <td>2025-09-12</td>
-              <td>50 USDT</td>
-              <td>Pending</td>
-            </tr>
+            <thead>
+              <tr><th>Tanggal</th><th>Jumlah</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>2025-09-10</td><td>100 USDT</td><td>Sukses</td></tr>
+              <tr><td>2025-09-12</td><td>50 USDT</td><td>Pending</td></tr>
+            </tbody>
           </table>
         </div>
 
-        <!-- History BossX -->
         <div class="history-section">
           <h2>History Deposit BossX</h2>
           <table>
-            <tr>
-              <th>Tanggal</th>
-              <th>Jumlah</th>
-              <th>Status</th>
-            </tr>
-            <tr>
-              <td>2025-09-08</td>
-              <td>500 BOSSX</td>
-              <td>Sukses</td>
-            </tr>
-            <tr>
-              <td>2025-09-11</td>
-              <td>250 BOSSX</td>
-              <td>Pending</td>
-            </tr>
+            <thead>
+              <tr><th>Tanggal</th><th>Jumlah</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>2025-09-08</td><td>500 BOSSX</td><td>Sukses</td></tr>
+              <tr><td>2025-09-11</td><td>250 BOSSX</td><td>Pending</td></tr>
+            </tbody>
           </table>
         </div>
       </section>
+
       <!-- Withdrawal -->
       <section id="withdraw" class="content">
         <div class="card">
-          <div class="card-header">
-            <h2>Tarik USDT</h2>
-          </div>
+          <div class="card-header"><h2>Tarik USDT</h2></div>
           <div class="card-body">
             <p><strong>Saldo Tether USDt (USDT):</strong> 0 USDT</p>
-
             <form id="withdrawForm">
               <label>Metode Penarikan:</label>
-              <select>
-                <option>Alamat</option>
-              </select>
-
+              <select><option>Alamat</option></select>
               <label>Alamat Penerima:</label>
               <input type="text" id="recipient" placeholder="Masukkan alamat koin di sini">
-
               <label>Jaringan:</label>
-              <select>
-                <option>TRC20</option>
-              </select>
-
+              <select><option>TRC20</option></select>
               <label>Jumlah Tarik Koin:</label>
               <div class="input-group">
                 <input type="number" id="amount" placeholder="Masukkan jumlah">
                 <button type="button" onclick="setMax()">Max</button>
               </div>
-
               <button type="submit" class="btn-primary">Kirim Withdraw</button>
             </form>
           </div>
           <div class="card-footer">
             <ul>
-              <li>Maksimal pengiriman 60.000 USDT per hari. <a href="#" style="color:#ff69b4;">(untuk menaikkan limit, klik sini)</a></li>
+              <li>Maksimal pengiriman 60.000 USDT per hari.</li>
               <li>Minimal pengiriman 10 USDT.</li>
               <li>Biaya 0,5 USDT dipotong dari jumlah pengiriman.</li>
               <li>USDT akan masuk ke wallet Anda dalam 60 menit.</li>
@@ -199,114 +202,73 @@
           </div>
         </div>
 
-        <!-- History Penarikan -->
         <div class="card">
-          <div class="card-header">
-            <h3>History Penarikan USDT</h3>
-          </div>
+          <div class="card-header"><h3>History Penarikan USDT</h3></div>
           <div class="card-body">
-            <table id="withdrawHistory" style="width:100%;border-collapse:collapse;">
+            <table id="withdrawHistory">
               <thead>
-                <tr>
-                  <th>Hari</th>
-                  <th>Tanggal</th>
-                  <th>Jam</th>
-                  <th>Jumlah</th>
-                  <th>Status</th>
-                </tr>
+                <tr><th>Hari</th><th>Tanggal</th><th>Jam</th><th>Jumlah</th><th>Status</th></tr>
               </thead>
-              <tbody>
-                <!-- Data akan muncul di sini -->
-              </tbody>
+              <tbody></tbody>
             </table>
           </div>
         </div>
       </section>
-      <!-- P2P -->
-      <section id="p2p" class="content">
-        <h1>Peer to Peer</h1>
-        <p>Materi P2P akan ditambahkan di sini.</p>
-      </section>
 
-      <!-- FAQ -->
-      <section id="faq" class="content">
-        <h1>FAQ</h1>
-        <p>Materi FAQ akan ditambahkan di sini.</p>
-      </section>
+      <!-- Menu Lain -->
+      <section id="p2p" class="content"><h1>Peer to Peer</h1><p>Materi P2P akan ditambahkan di sini.</p></section>
+      <section id="faq" class="content"><h1>FAQ</h1><p>Materi FAQ akan ditambahkan di sini.</p></section>
+      <section id="setting" class="content"><h1>Setting</h1><p>Materi pengaturan akan ditambahkan di sini.</p></section>
+      <footer><p>© 2025 BossX. Dibuat oleh Fery Muliawan</p></footer>
+    </div>
+  </div>
 
-      <!-- Setting -->
-      <section id="setting" class="content">
-        <h1>Setting</h1>
-        <p>Materi pengaturan akan ditambahkan di sini.</p>
-      </section>
-
-      <!-- Footer -->
-      <footer>
-        <p>© 2025 BossX. Dibuat oleh Fery Muliawan</p>
-      </footer>
-    </div> <!-- penutup .main -->
-  </div> <!-- penutup .container -->
+  <!-- Script SPA -->
   <script>
-    // Update jam real-time
     function updateClock() {
       const now = new Date();
-      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-      const date = now.toLocaleDateString('id-ID', options);
+      const date = now.toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
       const time = now.toLocaleTimeString('id-ID', { hour12: false });
       document.getElementById('clock').textContent = `${date} | ${time}`;
     }
 
-    // Ganti tema siang/malam
     function toggleTheme() {
-      const themeElement = document.getElementById('theme');
-      const themeBtn = document.getElementById('themeBtn');
-      themeElement.classList.toggle('day-theme');
-      themeElement.classList.toggle('night-theme');
-      themeBtn.textContent = themeElement.classList.contains('night-theme') ? "🌞" : "🌙";
+      const theme = document.getElementById('theme');
+      const btn = document.getElementById('themeBtn');
+      theme.classList.toggle('day-theme');
+      theme.classList.toggle('night-theme');
+      btn.textContent = theme.classList.contains('night-theme') ? "🌞" : "🌙";
     }
 
-    // Copy wallet address
     function copyWallet(id) {
-      const walletText = document.getElementById(id).textContent;
-      navigator.clipboard.writeText(walletText).then(() => {
-        alert("Wallet address copied: " + walletText);
-      });
+      const text = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(text).then(() => alert("Wallet address copied: " + text));
     }
 
-    // Navigasi antar section
     function showSection(id) {
-      document.querySelectorAll('.content').forEach(sec => sec.classList.remove('active'));
+      document.querySelectorAll('.content').forEach(s => s.classList.remove('active'));
       document.getElementById(id).classList.add('active');
       document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
       document.getElementById('menu-' + id).classList.add('active');
     }
 
-    // Set jumlah max (contoh saldo dummy)
     function setMax() {
       document.getElementById('amount').value = 100;
     }
 
-    // Form Withdrawal dengan validasi, konfirmasi, history, animasi
     document.getElementById('withdrawForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const amount = parseFloat(document.getElementById('amount').value);
-      if (isNaN(amount) || amount < 10) {
-        alert("Minimal penarikan adalah 10 USDT");
-        return;
-      }
-
-      const yakin = confirm(`Yakin mau tarik ${amount} USDT?`);
-      if (!yakin) return;
+      if (isNaN(amount) || amount < 10) return alert("Minimal penarikan adalah 10 USDT");
+      if (!confirm(`Yakin mau tarik ${amount} USDT?`)) return;
 
       const now = new Date();
       const hari = now.toLocaleDateString('id-ID', { weekday: 'long' });
       const tanggal = now.toLocaleDateString('id-ID');
       const jam = now.toLocaleTimeString('id-ID');
-
       const tbody = document.querySelector('#withdrawHistory tbody');
       const row = document.createElement('tr');
-
-      row.innerHTML = `
+            row.innerHTML = `
         <td>${hari}</td>
         <td>${tanggal}</td>
         <td>${jam}</td>
