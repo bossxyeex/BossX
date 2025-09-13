@@ -110,6 +110,39 @@
       padding: 40px;
       flex: 1;
     }
+    .deposit-section {
+      background: rgba(255,255,255,0.1);
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    .deposit-section img {
+      width: 200px;
+      height: 200px;
+      margin-bottom: 15px;
+    }
+    .wallet {
+      font-size: 16px;
+      background: rgba(0,0,0,0.3);
+      padding: 10px;
+      border-radius: 5px;
+      display: inline-block;
+      margin-bottom: 10px;
+      word-break: break-all;
+    }
+    .copy-btn {
+      background: #ff69b4;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .copy-btn:hover {
+      background: #ff85c1;
+    }
     /* Footer */
     footer {
       text-align: center;
@@ -122,12 +155,6 @@
     /* Tema Malam */
     .night-theme {
       background: linear-gradient(135deg, #000000, #434343);
-    }
-    @media (max-width: 768px) {
-      .container { flex-direction: column; }
-      .sidebar { width: 100%; text-align: center; }
-      .header { flex-direction: column; align-items: flex-start; }
-      .content { padding: 20px; }
     }
   </style>
 </head>
@@ -169,7 +196,23 @@
       <!-- Content -->
       <div class="content">
         <h1>Halaman Deposit</h1>
-        <p><em>Materi akan diisi langsung oleh Boss.</em></p>
+
+        <!-- Deposit USDT -->
+        <div class="deposit-section">
+          <h2>Deposit USDT</h2>
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=TQ3HBNdVFmTFvz9wz3AR2Siss7MRN1fuRM" alt="QR USDT">
+          <div class="wallet" id="usdtWallet">TQ3HBNdVFmTFvz9wz3AR2Siss7MRN1fuRM</div><br>
+          <button class="copy-btn" onclick="copyWallet('usdtWallet')">Copy Wallet</button>
+        </div>
+
+        <!-- Deposit BossX -->
+        <div class="deposit-section">
+          <h2>Deposit BossX</h2>
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=TTfKjrU18mi223ukVmz6FMNgBkma13kVA3" alt="QR BossX">
+          <div class="wallet" id="bossxWallet">TTfKjrU18mi223ukVmz6FMNgBkma13kVA3</div><br>
+          <button class="copy-btn" onclick="copyWallet('bossxWallet')">Copy Wallet</button>
+        </div>
+
       </div>
 
       <!-- Footer -->
@@ -193,6 +236,12 @@
       themeElement.classList.toggle('day-theme');
       themeElement.classList.toggle('night-theme');
       themeBtn.textContent = themeElement.classList.contains('night-theme') ? "🌞" : "🌙";
+    }
+    function copyWallet(id) {
+      const walletText = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(walletText).then(() => {
+        alert("Wallet address copied: " + walletText);
+      });
     }
     setInterval(updateClock, 1000);
     updateClock();
