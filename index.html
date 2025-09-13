@@ -1,1 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BossX Header</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #2c3e50;
+      color: white;
+      padding: 15px 30px;
+    }
+    .clock {
+      font-size: 16px;
+    }
+    .profile {
+      display: flex;
+      align-items: center;
+      text-align: right;
+    }
+    .profile img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-left: 15px;
+    }
+    .profile-info {
+      margin-left: 15px;
+    }
+    .profile-info h3 {
+      margin: 0;
+      font-size: 18px;
+    }
+    .profile-info p {
+      margin: 2px 0 0;
+      font-size: 14px;
+      color: #ccc;
+    }
+    .logo {
+      width: 40px;
+      height: 40px;
+      margin-left: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="clock" id="clock">Memuat waktu...</div>
+    <div class="profile">
+      <img src="https://i.ibb.co/qYBkPDH3/Picsart-25-04-01-16-25-47-054.png" alt="Logo BossX" class="logo" />
+      <div class="profile-info">
+        <h3>Fery Muliawan</h3>
+        <p>Validator ID: 8055x</p>
+      </div>
+      <img src="https://i.ibb.co/gbVsGLy0/FB-IMG-1617237754232.jpg" alt="Foto Fery" />
+    </div>
+  </div>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      const date = now.toLocaleDateString('id-ID', options);
+      const time = now.toLocaleTimeString('id-ID', { hour12: false });
+      document.getElementById('clock').textContent = `${date} | ${time}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
+
+</body>
+</html>
 
