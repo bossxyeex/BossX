@@ -8,6 +8,7 @@
     * { box-sizing: border-box; }
     body { margin: 0; font-family: 'Segoe UI', sans-serif; color: white; }
     .container { display: flex; min-height: 100vh; flex-direction: row; }
+
     /* Sidebar */
     .sidebar { width: 250px; padding: 30px 20px; flex-shrink: 0; }
     .sidebar-header { display: flex; align-items: center; margin-bottom: 40px; margin-top: -5px; }
@@ -16,8 +17,10 @@
     .sidebar a { display: block; color: white; text-decoration: none; margin: 12px 0; font-weight: bold; cursor: pointer; }
     .sidebar a.active { text-decoration: underline; }
     .sidebar a:hover { opacity: 0.8; padding-left: 10px; transition: 0.3s; }
+
     /* Main Area */
     .main { flex: 1; display: flex; flex-direction: column; }
+
     /* Header */
     .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; }
     .clock { font-size: 20px; font-weight: bold; }
@@ -26,12 +29,15 @@
     .profile-info { margin-left: 15px; }
     .profile-info h3 { margin: 0; font-size: 20px; font-weight: bold; }
     .profile-info p { margin: 2px 0 0; font-size: 16px; font-weight: bold; }
+
     /* Tombol Tema */
     .theme-toggle { background: none; border: none; color: white; font-size: 26px; cursor: pointer; margin-right: 20px; }
     .theme-toggle:hover { opacity: 0.8; }
+
     /* Content */
     .content { padding: 40px; flex: 1; display: none; }
     .content.active { display: block; }
+
     /* Deposit */
     .deposit-row { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 40px; }
     .deposit-section { flex: 1; background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; text-align: center; min-width: 280px; }
@@ -40,15 +46,18 @@
     .copy-btn { background: #ff69b4; border: none; padding: 8px 15px; border-radius: 5px; color: white; font-weight: bold; cursor: pointer; }
     .copy-btn:hover { background: #ff85c1; }
     .info-box { text-align: left; font-size: 14px; margin-top: 15px; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 5px; }
+
     /* History Table */
     .history-section { margin-bottom: 30px; }
     table { width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.1); border-radius: 8px; overflow: hidden; }
     th, td { padding: 10px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.2); }
     th { background: rgba(0,0,0,0.3); font-weight: bold; }
+
     /* Tema */
     .day-theme { background: linear-gradient(135deg, #8e44ad, #ff69b4); }
     .night-theme { background: linear-gradient(135deg, #000000, #434343); }
-    /* Card khusus Withdrawal */
+
+    /* Card Layout */
     .card { background: rgba(255,255,255,0.08); border-radius: 10px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
     .card-header h2, .card-header h3 { margin: 0 0 15px; }
     .card-body label { display: block; margin-top: 10px; font-weight: bold; }
@@ -57,7 +66,8 @@
     .input-group button { background: #ff69b4; border: none; padding: 8px 12px; border-radius: 5px; color: white; cursor: pointer; }
     .btn-primary { background: #ff69b4; border: none; padding: 10px; border-radius: 5px; color: white; font-weight: bold; margin-top: 15px; cursor: pointer; }
     .card-footer { font-size: 14px; margin-top: 15px; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 5px; }
-    /* Animasi status */
+
+    /* Status Animasi */
     .withdraw-status-pending { color: #ffcc00; animation: blink 1s infinite; }
     .withdraw-status-success { color: #00ff88; opacity: 0; animation: fadeIn 1s forwards; }
     @keyframes blink { 0%, 50%, 100% { opacity: 1; } 25%, 75% { opacity: 0.5; } }
@@ -98,12 +108,11 @@
         </div>
       </div>
 
-           <!-- Dashboard -->
+      <!-- Dashboard -->
       <section id="dashboard" class="content active">
         <h1>Dashboard</h1>
         <p>Selamat datang di Dashboard BossX.</p>
       </section>
-
       <!-- Deposit -->
       <section id="deposit" class="content">
         <h1>Halaman Deposit</h1>
@@ -214,17 +223,75 @@
           </div>
         </div>
       </section>
+      <!-- Peer to Peer -->
+      <section id="p2p" class="content">
+        <div class="card">
+          <div class="card-header">
+            <h2>Transfer ke Sesama Akun Masternode</h2>
+          </div>
+          <div class="card-body">
+            <form id="p2pForm">
+              <label>Tujuan (@username):</label>
+              <input type="text" id="p2pUsername" placeholder="@nama_pengguna" required>
 
-      <!-- Menu Lain -->
-      <section id="p2p" class="content"><h1>Peer to Peer</h1><p>Materi P2P akan ditambahkan di sini.</p></section>
-      <section id="faq" class="content"><h1>FAQ</h1><p>Materi FAQ akan ditambahkan di sini.</p></section>
-      <section id="setting" class="content"><h1>Setting</h1><p>Materi pengaturan akan ditambahkan di sini.</p></section>
-      <footer><p>© 2025 BossX. Dibuat oleh Fery Muliawan</p></footer>
+              <label>Jumlah BOSSX:</label>
+              <input type="number" id="p2pAmount" placeholder="Minimal 1 BOSSX" required>
+
+              <button type="submit" class="btn-primary">Kirim Transfer</button>
+            </form>
+          </div>
+          <div class="card-footer">
+            <ul>
+              <li>Transfer hanya ke akun masternode yang valid (@username)</li>
+              <li>Minimal transfer 1 BOSSX</li>
+              <li>Transaksi tidak dapat dibatalkan setelah dikirim</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>History Transfer P2P</h3>
+          </div>
+          <div class="card-body">
+            <table id="p2pHistory">
+              <thead>
+                <tr>
+                  <th>Hari</th>
+                  <th>Tanggal</th>
+                  <th>Jam</th>
+                  <th>Tujuan</th>
+                  <th>Jumlah</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section id="faq" class="content">
+        <h1>FAQ</h1>
+        <p>Materi FAQ akan ditambahkan di sini.</p>
+      </section>
+
+      <!-- Setting -->
+      <section id="setting" class="content">
+        <h1>Setting</h1>
+        <p>Materi pengaturan akan ditambahkan di sini.</p>
+      </section>
+
+      <!-- Footer -->
+      <footer>
+        <p>© 2025 BossX. Dibuat oleh Fery Muliawan</p>
+      </footer>
     </div>
   </div>
-
   <!-- Script SPA -->
   <script>
+    // Jam real-time
     function updateClock() {
       const now = new Date();
       const date = now.toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
@@ -232,6 +299,7 @@
       document.getElementById('clock').textContent = `${date} | ${time}`;
     }
 
+    // Tema siang/malam
     function toggleTheme() {
       const theme = document.getElementById('theme');
       const btn = document.getElementById('themeBtn');
@@ -240,11 +308,7 @@
       btn.textContent = theme.classList.contains('night-theme') ? "🌞" : "🌙";
     }
 
-    function copyWallet(id) {
-      const text = document.getElementById(id).textContent;
-      navigator.clipboard.writeText(text).then(() => alert("Wallet address copied: " + text));
-    }
-
+    // Navigasi antar menu
     function showSection(id) {
       document.querySelectorAll('.content').forEach(s => s.classList.remove('active'));
       document.getElementById(id).classList.add('active');
@@ -252,10 +316,18 @@
       document.getElementById('menu-' + id).classList.add('active');
     }
 
+    // Copy wallet
+    function copyWallet(id) {
+      const text = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(text).then(() => alert("Wallet address copied: " + text));
+    }
+
+    // Tombol Max di Withdrawal
     function setMax() {
       document.getElementById('amount').value = 100;
     }
 
+    // Submit Withdrawal
     document.getElementById('withdrawForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const amount = parseFloat(document.getElementById('amount').value);
@@ -266,9 +338,10 @@
       const hari = now.toLocaleDateString('id-ID', { weekday: 'long' });
       const tanggal = now.toLocaleDateString('id-ID');
       const jam = now.toLocaleTimeString('id-ID');
+
       const tbody = document.querySelector('#withdrawHistory tbody');
       const row = document.createElement('tr');
-            row.innerHTML = `
+      row.innerHTML = `
         <td>${hari}</td>
         <td>${tanggal}</td>
         <td>${jam}</td>
@@ -277,7 +350,6 @@
       `;
       tbody.prepend(row);
 
-      // Ubah status jadi sukses setelah 5 detik
       setTimeout(() => {
         const statusCell = row.querySelector('td:last-child');
         statusCell.classList.remove('withdraw-status-pending');
@@ -286,6 +358,48 @@
       }, 5000);
 
       alert("Permintaan penarikan berhasil dikirim!");
+    });
+
+    // Submit Peer to Peer
+    document.getElementById('p2pForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const username = document.getElementById('p2pUsername').value.trim();
+      const amount = parseFloat(document.getElementById('p2pAmount').value);
+
+      if (!username.startsWith('@')) {
+        alert("Username harus diawali dengan @");
+        return;
+      }
+      if (isNaN(amount) || amount < 1) {
+        alert("Minimal transfer adalah 1 BOSSX");
+        return;
+      }
+
+      const now = new Date();
+      const hari = now.toLocaleDateString('id-ID', { weekday: 'long' });
+      const tanggal = now.toLocaleDateString('id-ID');
+      const jam = now.toLocaleTimeString('id-ID');
+
+      const tbody = document.querySelector('#p2pHistory tbody');
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${hari}</td>
+        <td>${tanggal}</td>
+        <td>${jam}</td>
+        <td>${username}</td>
+        <td>${amount} BOSSX</td>
+        <td class="withdraw-status-pending">Pending</td>
+      `;
+      tbody.prepend(row);
+
+      setTimeout(() => {
+        const statusCell = row.querySelector('td:last-child');
+        statusCell.classList.remove('withdraw-status-pending');
+        statusCell.classList.add('withdraw-status-success');
+        statusCell.textContent = "Sukses";
+      }, 5000);
+
+      alert("Transfer berhasil dikirim ke " + username);
     });
 
     // Jalankan jam real-time
