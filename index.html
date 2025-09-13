@@ -11,7 +11,7 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background-color: #f4f4f4;
+      color: white;
     }
 
     .container {
@@ -23,8 +23,6 @@
     /* Sidebar */
     .sidebar {
       width: 250px;
-      background-color: #2c3e50;
-      color: white;
       padding: 30px 20px;
       flex-shrink: 0;
     }
@@ -53,7 +51,7 @@
       font-weight: bold;
     }
     .sidebar a:hover {
-      background-color: #1a252f;
+      opacity: 0.8;
       padding-left: 10px;
       transition: 0.3s;
     }
@@ -70,12 +68,10 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background-color: #34495e;
-      color: white;
       padding: 15px 30px;
     }
     .clock {
-      font-size: 18px;
+      font-size: 20px;
       font-weight: bold;
     }
     .profile {
@@ -101,22 +97,41 @@
       margin: 2px 0 0;
       font-size: 16px;
       font-weight: bold;
-      color: #ccc;
+    }
+
+    /* Tombol Tema */
+    .theme-toggle {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 26px;
+      cursor: pointer;
+      margin-right: 20px;
+    }
+    .theme-toggle:hover {
+      opacity: 0.8;
     }
 
     /* Content */
     .content {
       padding: 40px;
       flex: 1;
-      background-color: white;
     }
 
     /* Footer */
     footer {
-      background-color: #2c3e50;
-      color: white;
       text-align: center;
       padding: 20px;
+    }
+
+    /* Tema Siang */
+    .day-theme {
+      background: linear-gradient(135deg, #8e44ad, #ff69b4);
+    }
+
+    /* Tema Malam */
+    .night-theme {
+      background: linear-gradient(135deg, #000000, #434343);
     }
 
     @media (max-width: 768px) {
@@ -139,7 +154,7 @@
 </head>
 <body>
 
-  <div class="container">
+  <div class="container day-theme" id="theme">
     <!-- Sidebar -->
     <div class="sidebar">
       <div class="sidebar-header">
@@ -161,12 +176,15 @@
       <!-- Header -->
       <div class="header">
         <div class="clock" id="clock">Memuat waktu...</div>
-        <div class="profile">
-          <div class="profile-info">
-            <h3>Fery Muliawan</h3>
-            <p>Validator ID: 8055x</p>
+        <div style="display: flex; align-items: center;">
+          <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">🌙</button>
+          <div class="profile">
+            <div class="profile-info">
+              <h3>Fery Muliawan</h3>
+              <p>Validator ID: 8055x</p>
+            </div>
+            <img src="https://i.ibb.co/gbVsGLy0/FB-IMG-1617237754232.jpg" alt="Foto Fery" />
           </div>
-          <img src="https://i.ibb.co/gbVsGLy0/FB-IMG-1617237754232.jpg" alt="Foto Fery" />
         </div>
       </div>
 
@@ -191,6 +209,20 @@
       const time = now.toLocaleTimeString('id-ID', { hour12: false });
       document.getElementById('clock').textContent = `${date} | ${time}`;
     }
+
+    function toggleTheme() {
+      const themeElement = document.getElementById('theme');
+      const themeBtn = document.getElementById('themeBtn');
+      themeElement.classList.toggle('day-theme');
+      themeElement.classList.toggle('night-theme');
+
+      if (themeElement.classList.contains('night-theme')) {
+        themeBtn.textContent = "🌞";
+      } else {
+        themeBtn.textContent = "🌙";
+      }
+    }
+
     setInterval(updateClock, 1000);
     updateClock();
   </script>
