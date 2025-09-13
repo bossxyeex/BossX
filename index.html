@@ -80,12 +80,11 @@
       <section id="deposit" class="content">
         <h1>Halaman Deposit</h1>
         <div class="deposit-row">
-          <!-- Deposit USDT -->
           <div class="deposit-section">
             <h2>Deposit USDT</h2>
             <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=TQ3HBNdVFmTFvz9wz3AR2Siss7MRN1fuRM" alt="QR USDT">
             <div class="wallet" id="usdtWallet">TQ3HBNdVFmTFvz9wz3AR2Siss7MRN1fuRM</div><br>
-            <button class="copy-btn" onclick="copyWallet('usdtWallet')">Copy Wallet</button>
+                        <button class="copy-btn" onclick="copyWallet('usdtWallet')">Copy Wallet</button>
             <div class="info-box">
               <strong>Jaringan:</strong> TRC20<br><br>
               <ul>
@@ -97,89 +96,67 @@
             </div>
           </div>
 
-          <!-- Deposit -->
-<section id="deposit" class="content">
-  <h1>Halaman Deposit</h1>
-  <div class="deposit-row">
-    <!-- Deposit USDT -->
-    <div class="deposit-section">
-      <h2>Deposit USDT</h2>
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=TQ3HBNdVFmTFvz9wz3AR2Siss7MRN1fuRM" alt="QR USDT">
-      <div class="wallet" id="usdtWallet">TQ3HBNdVFmTFvz9wz3AR2Siss7MRN1fuRM</div><br>
-      <button class="copy-btn" onclick="copyWallet('usdtWallet')">Copy Wallet</button>
-      <div class="info-box">
-        <strong>Catatan:</strong><br><br>
-        <ul>
-          <li>Hanya kirim USDT melalui jaringan TRC20</li>
-          <li>Deposit akan masuk setelah 1x konfirmasi dan dapat digunakan berulang kali (alamat fixed TRC20)</li>
-          <li>Deposit di bawah minimum tidak akan masuk</li>
-          <li>Deposit hanya bisa dilakukan melalui alamat di atas dan akan menghasilkan token BossX</li>
-        </ul>
-      </div>
-    </div>
+          <div class="deposit-section">
+            <h2>Deposit BossX</h2>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=TTfKjrU18mi223ukVmz6FMNgBkma13kVA3" alt="QR BossX">
+            <div class="wallet" id="bossxWallet">TTfKjrU18mi223ukVmz6FMNgBkma13kVA3</div><br>
+            <button class="copy-btn" onclick="copyWallet('bossxWallet')">Copy Wallet</button>
+            <div class="info-box">
+              <strong>Jaringan:</strong> TRC20<br><br>
+              <ul>
+                <li>Alamat ini khusus untuk Anda dan dapat digunakan berulang kali (alamat Tron / TRC20).</li>
+                <li>Deposit akan masuk setelah 20 konfirmasi.</li>
+                <li>Deposit tidak dikenakan biaya.</li>
+                <li>Mengirim token selain BossX ke alamat ini akan menyebabkan token tersebut hilang.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
 
-    <!-- Deposit BossX -->
-    <div class="deposit-section">
-      <h2>Deposit BossX</h2>
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=TTfKjrU18mi223ukVmz6FMNgBkma13kVA3" alt="QR BossX">
-      <div class="wallet" id="bossxWallet">TTfKjrU18mi223ukVmz6FMNgBkma13kVA3</div><br>
-      <button class="copy-btn" onclick="copyWallet('bossxWallet')">Copy Wallet</button>
-      <div class="info-box">
-        <strong>Catatan:</strong><br><br>
-        <ul>
-          <li>Hanya kirim BossX melalui jaringan TRC20</li>
-          <li>Deposit akan masuk setelah 1x konfirmasi dan dapat digunakan berulang kali (alamat fixed TRC20)</li>
-          <li>Deposit di bawah minimum tidak akan masuk</li>
-          <li>Deposit hanya bisa dilakukan melalui alamat di atas</li>
-        </ul>
-      </div>
-    </div>
-  </div>
+        <!-- History USDT -->
+        <div class="history-section">
+          <h2>History Deposit USDT</h2>
+          <table>
+            <tr>
+              <th>Tanggal</th>
+              <th>Jumlah</th>
+              <th>Status</th>
+            </tr>
+            <tr>
+              <td>2025-09-10</td>
+              <td>100 USDT</td>
+              <td>Sukses</td>
+            </tr>
+            <tr>
+              <td>2025-09-12</td>
+              <td>50 USDT</td>
+              <td>Pending</td>
+            </tr>
+          </table>
+        </div>
 
-  <!-- History USDT -->
-  <div class="history-section">
-    <h2>History Deposit USDT</h2>
-    <table>
-      <tr>
-        <th>Tanggal</th>
-        <th>Jumlah</th>
-        <th>Status</th>
-      </tr>
-      <tr>
-        <td>2025-09-10</td>
-        <td>100 USDT</td>
-        <td>Sukses</td>
-      </tr>
-      <tr>
-        <td>2025-09-12</td>
-        <td>50 USDT</td>
-        <td>Pending</td>
-      </tr>
-    </table>
-  </div>
-
-  <!-- History BossX -->
-  <div class="history-section">
-    <h2>History Deposit BossX</h2>
-    <table>
-      <tr>
-        <th>Tanggal</th>
-        <th>Jumlah</th>
-        <th>Status</th>
-      </tr>
-      <tr>
-        <td>2025-09-08</td>
-        <td>500 BOSSX</td>
-        <td>Sukses</td>
-      </tr>
-      <tr>
-        <td>2025-09-11</td>
-        <td>250 BOSSX</td>
-        <td>Pending</td>
-      </tr>
-    </table>
-  </div>
-</section>
+        <!-- History BossX -->
+        <div class="history-section">
+          <h2>History Deposit BossX</h2>
+          <table>
+            <tr>
+              <th>Tanggal</th>
+              <th>Jumlah</th>
+              <th>Status</th>
+            </tr>
+            <tr>
+              <td>2025-09-08</td>
+              <td>500 BOSSX</td>
+              <td>Sukses</td>
+            </tr>
+            <tr>
+              <td>2025-09-11</td>
+              <td>250 BOSSX</td>
+              <td>Pending</td>
+            </tr>
+          </table>
+        </div>
+      </section>
       <!-- Withdrawal -->
       <section id="withdraw" class="content">
         <div class="card">
