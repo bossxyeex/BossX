@@ -3,119 +3,73 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>BossX Masternode</title>
-
-  <!-- Bagian 2 – CSS Tema & Layout -->
+  <title>BossX Masternode — Baseline Aman</title>
   <style>
-  /* Reset & dasar */
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: Arial, sans-serif; display: flex; background: #111; color: #fff; }
+    /* Reset & dasar */
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:Arial, sans-serif;display:flex;background:#111;color:#fff}
 
-  /* Sidebar */
-  .sidebar {
-    width: 220px;
-    background: #222;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .sidebar h2 { color: gold; margin-bottom: 20px; }
-  .sidebar a {
-    padding: 10px;
-    color: #ccc;
-    text-decoration: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  .sidebar a.active, .sidebar a:hover {
-    background: purple;
-    color: #fff;
-  }
+    /* Sidebar */
+    .sidebar{width:220px;background:#222;padding:20px;display:flex;flex-direction:column;gap:10px}
+    .sidebar h2{color:gold;margin-bottom:20px}
+    .sidebar a{padding:10px;color:#ccc;text-decoration:none;border-radius:4px;cursor:pointer}
+    .sidebar a.active,.sidebar a:hover{background:purple;color:#fff}
 
-  /* Main */
-  .main { flex: 1; padding: 20px; }
-  .topbar {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 20px;
-  }
-  #clock { font-weight: bold; }
-  #themeBtn {
-    background: none; border: none; font-size: 20px; cursor: pointer; color: gold;
-  }
+    /* Main */
+    .main{flex:1;padding:20px}
+    .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+    #themeBtn{background:none;border:none;font-size:20px;cursor:pointer;color:gold}
 
-  /* Konten */
-  .content { display: none; }
-  .content.active { display: block; }
+    /* Konten */
+    .content{display:none}
+    .content.active{display:block}
 
-  /* Cards */
-  .cards { display: flex; flex-wrap: wrap; gap: 20px; }
-  .card {
-    background: #1a1a1a;
-    padding: 15px;
-    border-radius: 8px;
-    flex: 1;
-    min-width: 250px;
-  }
-  .card h3 { margin-bottom: 10px; color: gold; }
-  .value { font-size: 1.2em; margin: 10px 0; }
-  .big-time { font-size: 2em; font-weight: bold; }
+    /* Cards */
+    .cards{display:flex;flex-wrap:wrap;gap:20px}
+    .card{background:#1a1a1a;padding:15px;border-radius:8px;flex:1;min-width:260px}
+    .card h3{margin-bottom:10px;color:gold}
+    .value{font-size:1.1em;margin:8px 0}
+    .big-time{font-size:2em;font-weight:bold}
 
-  /* Tombol */
-  .btn-primary {
-    background: purple; color: #fff; border: none;
-    padding: 8px 12px; border-radius: 4px; cursor: pointer;
-  }
-  .btn-primary:hover { background: darkmagenta; }
-  .btn-secondary {
-    background: #444; color: #fff; border: none;
-    padding: 6px 10px; border-radius: 4px; cursor: pointer;
-  }
-  .btn-secondary:hover { background: #555; }
+    /* Tabel */
+    .table-wrap{overflow-x:auto}
+    table{width:100%;border-collapse:collapse;margin-top:10px}
+    th,td{padding:8px;border-bottom:1px solid #333;text-align:left}
+    th{background:#333;color:gold}
 
-  /* Form */
-  .form-row { margin-bottom: 10px; }
-  .form-row label { display: block; margin-bottom: 5px; }
-  .form-row input {
-    width: 100%; padding: 6px; border-radius: 4px;
-    border: 1px solid #555; background: #000; color: #fff;
-  }
+    /* Status */
+    .withdraw-status-pending{color:orange;font-weight:bold}
+    .withdraw-status-success{color:lime;font-weight:bold}
 
-  /* Tabel */
-  .table-wrap { overflow-x: auto; }
-  table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-  th, td { padding: 8px; border-bottom: 1px solid #333; text-align: left; }
-  th { background: #333; color: gold; }
+    /* Buttons */
+    .btn-primary{background:purple;color:#fff;border:none;padding:8px 12px;border-radius:4px;cursor:pointer}
+    .btn-primary:hover{background:darkmagenta}
 
-  /* Status */
-  .withdraw-status-pending { color: orange; font-weight: bold; }
-  .withdraw-status-success { color: lime; font-weight: bold; }
-
-  /* Tema */
-  .night-theme { background: #111; color: #fff; }
-  .day-theme { background: #f5f5f5; color: #000; }
-  .day-theme .sidebar { background: #ddd; }
-  .day-theme .sidebar a { color: #000; }
-  .day-theme .sidebar a.active, .day-theme .sidebar a:hover { background: gold; color: #000; }
+    /* Tema */
+    .night-theme{background:#111;color:#fff}
+    .day-theme{background:#f5f5f5;color:#000}
+    .day-theme .sidebar{background:#ddd}
+    .day-theme .sidebar a{color:#000}
+    .day-theme .sidebar a.active,.day-theme .sidebar a:hover{background:gold;color:#000}
   </style>
 </head>
 <body id="theme" class="night-theme">
   <!-- Sidebar -->
   <aside class="sidebar">
     <h2>BossX</h2>
-    <a id="menu-dashboard" class="active" onclick="showSection('dashboard')">Dashboard</a>
-    <a id="menu-validasi" onclick="showSection('validasi')">Validasi Running</a>
-    <a id="menu-reward" onclick="showSection('reward')">Reward Validasi</a>
-    <a id="menu-history" onclick="showSection('history')">History Aktivasi</a>
-    <a id="menu-withdraw" onclick="showSection('withdraw')">Withdraw</a>
-    <a id="menu-p2p" onclick="showSection('p2p')">Peer to Peer</a>
+    <a id="menu-dashboard" class="active" data-target="dashboard">Dashboard</a>
+    <a id="menu-validasi" data-target="validasi">Validasi Running</a>
+    <a id="menu-reward" data-target="reward">Reward Validasi</a>
+    <a id="menu-history" data-target="history">History Aktivasi</a>
+    <a id="menu-withdraw" data-target="withdraw">Withdraw</a>
+    <a id="menu-p2p" data-target="p2p">Peer to Peer</a>
   </aside>
 
   <!-- Main -->
   <main class="main">
     <div class="topbar">
       <div id="clock">—</div>
-      <button id="themeBtn" onclick="toggleTheme()">🌙</button>
+      <button id="themeBtn" type="button">🌙</button>
     </div>
 
     <!-- Dashboard -->
@@ -125,11 +79,10 @@
         <div class="card">
           <h3>Status validasi</h3>
           <div id="runStatus"><span class="withdraw-status-pending">Belum berjalan</span></div>
-          <button id="runBtn" class="btn-primary">ON</button>
+          <button id="runBtn" class="btn-primary" type="button">ON</button>
         </div>
         <div class="card">
           <h3>Countdown auto-OFF harian</h3>
-          <div id="countdownText">Matikan otomatis jam 06:00</div>
           <div class="big-time" id="countdown">00:00:00</div>
         </div>
         <div class="card">
@@ -171,7 +124,7 @@
         <div class="card">
           <h3>Total reward terkumpul</h3>
           <div class="value" id="rewardAmount">0.0000000000 BossX</div>
-          <button id="convertBtn" class="btn-primary">Convert ke USDT</button>
+          <button id="convertBtn" class="btn-primary" type="button">Convert ke USDT</button>
           <p class="note">Minimal convert: 1 BOSSX</p>
         </div>
       </div>
@@ -233,199 +186,121 @@
     </section>
   </main>
 
-  <!-- Bagian 3 & 4 – JavaScript (gabungan final) -->
   <script>
-  // Konstanta & state
-  const CONTRACT_SECONDS = 31536000; // 365 hari
-  const REWARD_RATE_PER_SEC = 0;     // Boss isi nanti
-  const RATE_BOSSX_TO_USDT = 1;      // Placeholder
+    // Semua script dibungkus agar aman dan tidak akses elemen sebelum siap
+    document.addEventListener('DOMContentLoaded', () => {
+      // State sangat minimal (tanpa perhitungan) agar pasti aman
+      let validasiAktif = false;
 
-  let validasiAktif = false, cycleElapsed = 0, cycleReward = 0;
+      // Navigasi aman
+      document.querySelectorAll('.sidebar a').forEach(a => {
+        a.addEventListener('click', () => {
+          const id = a.getAttribute('data-target');
+          if (!id) return;
+          document.querySelectorAll('.content').forEach(s => s.classList.remove('active'));
+          const target = document.getElementById(id);
+          if (target) target.classList.add('active');
 
-  // Penyimpanan
-  const LS = {
-    get start(){return +localStorage.start||0}, set start(v){localStorage.start=v},
-    get end(){return +localStorage.end||0}, set end(v){localStorage.end=v},
-    get totalReward(){return +localStorage.totalReward||0}, set totalReward(v){localStorage.totalReward=v},
-    get usdt(){return +localStorage.usdt||0}, set usdt(v){localStorage.usdt=v}
-  };
+          document.querySelectorAll('.sidebar a').forEach(x => x.classList.remove('active'));
+          a.classList.add('active');
+        });
+      });
 
-  // Helper format
-  function to2(n){ return String(n).padStart(2,'0'); }
-  function formatBossx(n){ return (Math.floor(n*1e10)/1e10).toFixed(10)+" BossX"; }
-  function formatUsdt(n){ return (Math.floor(n*100)/100).toFixed(2)+" USDT"; }
+      // Theme toggle aman
+      const theme = document.getElementById('theme');
+      const themeBtn = document.getElementById('themeBtn');
+      if (theme && themeBtn) {
+        themeBtn.addEventListener('click', () => {
+          theme.classList.toggle('day-theme');
+          theme.classList.toggle('night-theme');
+          themeBtn.textContent = theme.classList.contains('night-theme') ? '🌞' : '🌙';
+        });
+      }
 
-  // Tema & navigasi
-  function toggleTheme(){
-    const theme = document.getElementById('theme');
-    const btn = document.getElementById('themeBtn');
-    theme.classList.toggle('day-theme');
-    theme.classList.toggle('night-theme');
-    btn.textContent = theme.classList.contains('night-theme') ? "🌞" : "🌙";
-  }
-  function showSection(id){
-    document.querySelectorAll('.content').forEach(s=>s.classList.remove('active'));
-    const target = document.getElementById(id);
-    if (target) target.classList.add('active');
-    document.querySelectorAll('.sidebar a').forEach(a=>a.classList.remove('active'));
-    const menu = document.getElementById('menu-'+id);
-    if (menu) menu.classList.add('active');
-  }
+      // Clock aman
+      const clockEl = document.getElementById('clock');
+      function updateClock() {
+        const now = new Date();
+        const date = now.toLocaleDateString('id-ID', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+        const time = now.toLocaleTimeString('id-ID', { hour12:false });
+        if (clockEl) clockEl.textContent = `${date} | ${time}`;
+      }
+      updateClock();
+      setInterval(updateClock, 1000);
 
-  // Clock
-  function updateClock(){
-    const now = new Date();
-    const date = now.toLocaleDateString('id-ID',{weekday:'long', year:'numeric', month:'long', day:'numeric'});
-    const time = now.toLocaleTimeString('id-ID',{hour12:false});
-    const el = document.getElementById('clock');
-    if(el) el.textContent = `${date} | ${time}`;
-  }
+      // Countdown harian aman (tanpa mematikan logika)
+      const cdEl = document.getElementById('countdown');
+      function to2(n){ return String(n).padStart(2,'0'); }
+      function updateCountdownToSix(){
+        const now = new Date();
+        const target = new Date(now);
+        target.setHours(6,0,0,0);
+        if (now >= target) target.setDate(target.getDate()+1);
+        const diff = Math.max(0, target - now);
+        const h = to2(Math.floor(diff/3600000));
+        const m = to2(Math.floor((diff%3600000)/60000));
+        const s = to2(Math.floor((diff%60000)/1000));
+        if (cdEl) cdEl.textContent = `${h}:${m}:${s}`;
+      }
+      updateCountdownToSix();
+      setInterval(updateCountdownToSix, 1000);
 
-  // Auto-OFF 06:00 + countdown harian
-  function updateCountdownToSix(){
-    const now = new Date();
-    const target = new Date(now);
-    target.setHours(6,0,0,0);
-    if(now >= target) target.setDate(target.getDate()+1);
-    const diff = Math.max(0, target - now);
-    const h = to2(Math.floor(diff/3600000));
-    const m = to2(Math.floor((diff%3600000)/60000));
-    const s = to2(Math.floor((diff%60000)/1000));
-    const txt = document.getElementById('countdown');
-    if (txt) txt.textContent = `${h}:${m}:${s}`;
+      // Status tombol ON aman (hanya ubah tampilan)
+      const runBtn = document.getElementById('runBtn');
+      const runStatus = document.getElementById('runStatus');
+      if (runBtn && runStatus) {
+        runBtn.addEventListener('click', () => {
+          validasiAktif = !validasiAktif;
+          runStatus.innerHTML = validasiAktif
+            ? "<span class='withdraw-status-success'>Berjalan ✅</span>"
+            : "<span class='withdraw-status-pending'>Belum berjalan</span>";
+        });
+      }
 
-    if (diff <= 1000 && validasiAktif){
-      validasiAktif = false;
-      uiSetRunStatus(false);
-      alert("Masternode OFF otomatis jam 06:00. Klik ON lagi untuk menerima reward.");
-    }
-  }
+      // Placeholder saldo & reward tetap tampil stabil
+      const usdtBalance = document.getElementById('usdtBalance');
+      const rewardAmount = document.getElementById('rewardAmount');
+      if (usdtBalance) usdtBalance.textContent = "0.00 USDT";
+      if (rewardAmount) rewardAmount.textContent = "0.0000000000 BossX";
 
-  // Kontrak
-  function startContract(){
-    if(!LS.start){
-      LS.start = Date.now()/1000|0;
-      LS.end = LS.start + CONTRACT_SECONDS;
-      // Jika sudah ada baris history, update masa akhir kontrak pada baris teratas
-      const firstRow = document.querySelector('#historyValidasi tbody tr');
-      if(firstRow) firstRow.lastElementChild.textContent = new Date(LS.end*1000).toLocaleString();
-    }
-  }
-  function updateContractCountdown(){
-    if(!LS.end) return;
-    const nowSec = Date.now()/1000|0;
-    let sisa = LS.end - nowSec;
-    if (sisa < 0) sisa = 0;
-    const hari = Math.floor(sisa/86400);
-    const jam = Math.floor((sisa%86400)/3600);
-    const menit = Math.floor((sisa%3600)/60);
-    const detik = sisa%60;
-    const el = document.getElementById('contractCountdown');
-    if(el) el.textContent = `${hari}h ${jam}j ${menit}m ${detik}d`;
-    if(sisa === 0 && validasiAktif){
-      validasiAktif = false;
-      uiSetRunStatus(false);
-      alert("Kontrak sudah habis ❌");
-    }
-  }
+      // Form aktivasi masternode: hanya catat ke tabel (tanpa logika kontrak dulu)
+      const nodeForm = document.getElementById('nodeForm');
+      if (nodeForm) {
+        nodeForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const v = parseFloat(document.getElementById('nodeAmount').value);
+          if (isNaN(v) || v < 10) { alert("Minimal aktivasi 10 BOSSX"); return; }
+          const now = new Date();
+          const tbody = document.querySelector('#historyValidasi tbody');
+          if (tbody) {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td>${now.toLocaleDateString('id-ID',{weekday:'long'})}</td>
+              <td>${now.getDate()}</td>
+              <td>${now.toLocaleDateString('id-ID',{month:'long'})}</td>
+              <td>${now.getFullYear()}</td>
+              <td>${to2(now.getHours())}</td>
+              <td>${to2(now.getMinutes())}</td>
+              <td>${to2(now.getSeconds())}</td>
+              <td>${v} BOSSX</td>
+              <td class="withdraw-status-success">Aktif</td>
+              <td>-</td>
+            `;
+            tbody.prepend(tr);
+          }
+          alert("Masternode dicatat ✅");
+          nodeForm.reset();
+        });
+      }
 
-  // UI helpers
-  function uiSetRunStatus(on){
-    const elRunStatus = document.getElementById('runStatus');
-    const btn = document.getElementById('runBtn');
-    if (elRunStatus) {
-      elRunStatus.innerHTML = on
-        ? "<span class='withdraw-status-success'>Berjalan ✅</span>"
-        : "<span class='withdraw-status-pending'>Belum berjalan</span>";
-    }
-    if (btn) btn.style.backgroundColor = on ? "#00ff88" : "purple";
-  }
-  function uiUpdateBalances(){
-    const cycleEl = document.getElementById('bossxAmount');
-    const totalEl = document.getElementById('rewardAmount');
-    const usdtEl = document.getElementById('usdtBalance');
-    if (cycleEl) cycleEl.textContent = formatBossx(cycleReward);
-    if (totalEl) totalEl.textContent = formatBossx(+LS.totalReward || 0);
-    if (usdtEl) usdtEl.textContent = formatUsdt(+LS.usdt || 0);
-  }
-
-  // Siklus reward
-  function tickReward(){
-    if (!validasiAktif) return;
-    if ((Date.now()/1000|0) >= LS.end){ validasiAktif=false; uiSetRunStatus(false); return; }
-    cycleElapsed += 1;
-    cycleReward += REWARD_RATE_PER_SEC;
-    uiUpdateBalances();
-    if (cycleElapsed >= 60){
-      LS.totalReward = (+LS.totalReward || 0) + cycleReward;
-      cycleElapsed = 0; cycleReward = 0;
-      uiUpdateBalances();
-    }
-  }
-
-  // Event: tombol ON
-  document.getElementById('runBtn').onclick = ()=>{
-    if ((Date.now()/1000|0) >= LS.end){
-      uiSetRunStatus(false);
-      alert("Kontrak sudah habis ❌");
-      return;
-    }
-    if (!validasiAktif){
-      startContract();
-      validasiAktif = true;
-      uiSetRunStatus(true);
-    }
-  };
-
-  // Event: convert ke USDT
-  document.getElementById('convertBtn').onclick = ()=>{
-    if ((+LS.totalReward||0) < 1) return alert("Minimal convert 1 BOSSX");
-    LS.usdt = (+LS.usdt||0) + (+LS.totalReward||0) * RATE_BOSSX_TO_USDT;
-    LS.totalReward = 0;
-    uiUpdateBalances();
-  };
-
-  // Event: aktivasi masternode → catat ke history
-  document.getElementById('nodeForm').onsubmit = (e)=>{
-    e.preventDefault();
-    const amount = parseFloat(document.getElementById('nodeAmount').value);
-    if (isNaN(amount) || amount < 10) return alert("Minimal aktivasi 10 BOSSX");
-    const now = new Date();
-    const tbody = document.querySelector('#historyValidasi tbody');
-    const row = document.createElement('tr');
-    row.innerHTML = `
-      <td>${now.toLocaleDateString('id-ID',{weekday:'long'})}</td>
-      <td>${now.getDate()}</td>
-      <td>${now.toLocaleDateString('id-ID',{month:'long'})}</td>
-      <td>${now.getFullYear()}</td>
-      <td>${to2(now.getHours())}</td>
-      <td>${to2(now.getMinutes())}</td>
-      <td>${to2(now.getSeconds())}</td>
-      <td>${amount} BOSSX</td>
-      <td class="withdraw-status-success">Aktif</td>
-      <td>-</td>
-    `;
-    tbody.prepend(row);
-    alert("Masternode berhasil diaktivasi ✅");
-  };
-
-  // Init
-  function initUI(){
-    uiSetRunStatus(false);
-    uiUpdateBalances();
-    updateClock();
-    updateCountdownToSix();
-    updateContractCountdown();
-  }
-
-  // Intervals
-  setInterval(tickReward, 1000);
-  setInterval(updateClock, 1000);
-  setInterval(updateCountdownToSix, 1000);
-  setInterval(updateContractCountdown, 1000);
-
-  // Start
-  initUI();
+      // Convert tombol aman (tanpa logika saldo dulu)
+      const convertBtn = document.getElementById('convertBtn');
+      if (convertBtn) {
+        convertBtn.addEventListener('click', () => {
+          alert("Minimal convert 1 BOSSX (logika konversi akan ditambahkan setelah baseline OK).");
+        });
+      }
+    });
   </script>
 </body>
 </html>
