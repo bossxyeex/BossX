@@ -1,75 +1,63 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>BossX Masternode — Baseline Aman</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BossX — Restart Bersih</title>
   <style>
-    /* Reset & dasar */
+    /* Reset */
     *{margin:0;padding:0;box-sizing:border-box}
-    body{font-family:Arial, sans-serif;display:flex;background:#111;color:#fff}
-
+    :root{
+      --bg:#100015; --panel:#1b0a23; --accent:#8a2be2; --accent-2:#ff4dd2; --gold:#ffd66e; --text:#f7f2fa;
+    }
+    body{font:14px/1.5 system-ui,Segoe UI,Arial;background:var(--bg);color:var(--text);display:flex;min-height:100vh}
     /* Sidebar */
-    .sidebar{width:220px;background:#222;padding:20px;display:flex;flex-direction:column;gap:10px}
-    .sidebar h2{color:gold;margin-bottom:20px}
-    .sidebar a{padding:10px;color:#ccc;text-decoration:none;border-radius:4px;cursor:pointer}
-    .sidebar a.active,.sidebar a:hover{background:purple;color:#fff}
-
+    .sidebar{width:240px;background:linear-gradient(180deg,#19001f, #290033);padding:20px;display:flex;flex-direction:column;gap:10px}
+    .brand{font-weight:700;color:var(--gold);letter-spacing:0.5px;margin-bottom:10px}
+    .menu a{display:block;padding:10px 12px;border-radius:8px;color:#d8cde6;text-decoration:none}
+    .menu a.active,.menu a:hover{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff}
     /* Main */
     .main{flex:1;padding:20px}
     .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
-    #themeBtn{background:none;border:none;font-size:20px;cursor:pointer;color:gold}
-
-    /* Konten */
+    .topbar button{background:transparent;border:1px solid rgba(255,255,255,.15);color:#fff;border-radius:8px;padding:6px 10px;cursor:pointer}
+    /* Section */
     .content{display:none}
     .content.active{display:block}
-
     /* Cards */
-    .cards{display:flex;flex-wrap:wrap;gap:20px}
-    .card{background:#1a1a1a;padding:15px;border-radius:8px;flex:1;min-width:260px}
-    .card h3{margin-bottom:10px;color:gold}
-    .value{font-size:1.1em;margin:8px 0}
-    .big-time{font-size:2em;font-weight:bold}
-
-    /* Tabel */
-    .table-wrap{overflow-x:auto}
-    table{width:100%;border-collapse:collapse;margin-top:10px}
-    th,td{padding:8px;border-bottom:1px solid #333;text-align:left}
-    th{background:#333;color:gold}
-
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+    .card{background:linear-gradient(180deg,#1a0b22,#110617);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px}
+    .card h3{color:var(--gold);margin-bottom:8px;font-weight:600}
+    .value{font-size:1.1rem;opacity:.95}
+    /* Table */
+    .table-wrap{overflow:auto}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:10px;border-bottom:1px solid rgba(255,255,255,.08);text-align:left}
+    th{color:var(--gold);background:rgba(255,255,255,.04)}
     /* Status */
-    .withdraw-status-pending{color:orange;font-weight:bold}
-    .withdraw-status-success{color:lime;font-weight:bold}
-
-    /* Buttons */
-    .btn-primary{background:purple;color:#fff;border:none;padding:8px 12px;border-radius:4px;cursor:pointer}
-    .btn-primary:hover{background:darkmagenta}
-
-    /* Tema */
-    .night-theme{background:#111;color:#fff}
-    .day-theme{background:#f5f5f5;color:#000}
-    .day-theme .sidebar{background:#ddd}
-    .day-theme .sidebar a{color:#000}
-    .day-theme .sidebar a.active,.day-theme .sidebar a:hover{background:gold;color:#000}
+    .status-off{color:#ffb057;font-weight:700}
+    .status-on{color:#63ffa6;font-weight:700}
   </style>
 </head>
-<body id="theme" class="night-theme">
-  <!-- Sidebar -->
+<body>
   <aside class="sidebar">
-    <h2>BossX</h2>
-    <a id="menu-dashboard" class="active" data-target="dashboard">Dashboard</a>
-    <a id="menu-validasi" data-target="validasi">Validasi Running</a>
-    <a id="menu-reward" data-target="reward">Reward Validasi</a>
-    <a id="menu-history" data-target="history">History Aktivasi</a>
-    <a id="menu-withdraw" data-target="withdraw">Withdraw</a>
-    <a id="menu-p2p" data-target="p2p">Peer to Peer</a>
+    <div class="brand">BossX</div>
+    <nav class="menu">
+      <a href="#" data-target="dashboard" class="active">Dashboard</a>
+      <a href="#" data-target="validasi">Validasi Running</a>
+      <a href="#" data-target="reward">Reward Validasi</a>
+      <a href="#" data-target="history">History Aktivasi</a>
+      <a href="#" data-target="withdraw">Withdraw</a>
+      <a href="#" data-target="p2p">Peer to Peer</a>
+    </nav>
   </aside>
 
-  <!-- Main -->
   <main class="main">
     <div class="topbar">
       <div id="clock">—</div>
-      <button id="themeBtn" type="button">🌙</button>
+      <div style="display:flex;gap:8px">
+        <button type="button" id="themeBtn">Tema</button>
+        <button type="button" id="resetBtn" title="Reset tampilan (tidak hapus data)">Reset UI</button>
+      </div>
     </div>
 
     <!-- Dashboard -->
@@ -78,12 +66,13 @@
       <div class="cards">
         <div class="card">
           <h3>Status validasi</h3>
-          <div id="runStatus"><span class="withdraw-status-pending">Belum berjalan</span></div>
-          <button id="runBtn" class="btn-primary" type="button">ON</button>
+          <div id="runStatus" class="value status-off">Belum berjalan</div>
+          <button id="runBtn" type="button" style="margin-top:10px">ON</button>
         </div>
         <div class="card">
-          <h3>Countdown auto-OFF harian</h3>
-          <div class="big-time" id="countdown">00:00:00</div>
+          <h3>Auto-OFF harian</h3>
+          <div class="value">Matikan otomatis jam 06:00</div>
+          <div class="value" id="countdown">00:00:00</div>
         </div>
         <div class="card">
           <h3>Countdown kontrak</h3>
@@ -91,12 +80,12 @@
         </div>
         <div class="card">
           <h3>Saldo USDT</h3>
-          <div id="usdtBalance">0.00 USDT</div>
+          <div class="value" id="usdtBalance">0.00 USDT</div>
         </div>
       </div>
     </section>
 
-    <!-- Validasi Running -->
+    <!-- Validasi -->
     <section id="validasi" class="content">
       <h1>Validasi Running</h1>
       <div class="cards">
@@ -107,34 +96,32 @@
         <div class="card">
           <h3>Aktivasi masternode</h3>
           <form id="nodeForm">
-            <div class="form-row">
-              <label for="nodeAmount">Jumlah aktivasi (BOSSX)</label>
-              <input id="nodeAmount" type="number" step="0.0000000001" min="10" required />
-            </div>
-            <button type="submit" class="btn-primary">Aktivkan Masternode</button>
+            <label for="nodeAmount" style="display:block;margin-bottom:6px">Jumlah (BOSSX)</label>
+            <input id="nodeAmount" type="number" step="0.0000000001" min="10" required style="width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,.15);background:transparent;color:#fff" />
+            <button type="submit" style="margin-top:10px">Aktivkan Masternode</button>
           </form>
         </div>
       </div>
     </section>
 
-    <!-- Reward Validasi -->
+    <!-- Reward -->
     <section id="reward" class="content">
       <h1>Reward Validasi</h1>
       <div class="cards">
         <div class="card">
-          <h3>Total reward terkumpul</h3>
+          <h3>Total reward</h3>
           <div class="value" id="rewardAmount">0.0000000000 BossX</div>
-          <button id="convertBtn" class="btn-primary" type="button">Convert ke USDT</button>
-          <p class="note">Minimal convert: 1 BOSSX</p>
+          <button id="convertBtn" type="button" style="margin-top:10px">Convert ke USDT</button>
+          <div class="value" style="opacity:.7">Minimal convert: 1 BOSSX</div>
         </div>
       </div>
     </section>
 
-    <!-- History Aktivasi -->
+    <!-- History -->
     <section id="history" class="content">
       <h1>History Aktivasi</h1>
       <div class="table-wrap">
-        <table id="historyValidasi">
+        <table>
           <thead>
             <tr>
               <th>Hari</th><th>Tanggal</th><th>Bulan</th><th>Tahun</th>
@@ -142,7 +129,7 @@
               <th>Jumlah Aktivasi</th><th>Status</th><th>Masa Akhir Kontrak</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody id="historyBody"></tbody>
         </table>
       </div>
     </section>
@@ -154,32 +141,26 @@
         <div class="card">
           <h3>Form penarikan</h3>
           <form id="withdrawForm">
-            <div class="form-row">
-              <label for="amount">Jumlah (USDT)</label>
-              <input id="amount" type="number" step="0.01" min="10" required />
-            </div>
-            <button type="submit" class="btn-primary">Kirim penarikan</button>
+            <label for="amount" style="display:block;margin-bottom:6px">Jumlah (USDT)</label>
+            <input id="amount" type="number" step="0.01" min="10" required style="width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,.15);background:transparent;color:#fff" />
+            <button type="submit" style="margin-top:10px">Kirim penarikan</button>
           </form>
         </div>
       </div>
     </section>
 
-    <!-- Peer to Peer -->
+    <!-- P2P -->
     <section id="p2p" class="content">
       <h1>Peer to Peer</h1>
       <div class="cards">
         <div class="card">
           <h3>Kirim BOSSX</h3>
           <form id="p2pForm">
-            <div class="form-row">
-              <label for="p2pUsername">Username penerima</label>
-              <input id="p2pUsername" type="text" placeholder="@username" required />
-            </div>
-            <div class="form-row">
-              <label for="p2pAmount">Jumlah (BOSSX)</label>
-              <input id="p2pAmount" type="number" step="0.0000000001" min="1" required />
-            </div>
-            <button type="submit" class="btn-primary">Kirim</button>
+            <label for="p2pUsername" style="display:block;margin-bottom:6px">Username</label>
+            <input id="p2pUsername" type="text" placeholder="@username" required style="width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,.15);background:transparent;color:#fff" />
+            <label for="p2pAmount" style="display:block;margin:10px 0 6px">Jumlah (BOSSX)</label>
+            <input id="p2pAmount" type="number" step="0.0000000001" min="1" required style="width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,.15);background:transparent;color:#fff" />
+            <button type="submit" style="margin-top:10px">Kirim</button>
           </form>
         </div>
       </div>
@@ -187,119 +168,105 @@
   </main>
 
   <script>
-    // Semua script dibungkus agar aman dan tidak akses elemen sebelum siap
-    document.addEventListener('DOMContentLoaded', () => {
-      // State sangat minimal (tanpa perhitungan) agar pasti aman
-      let validasiAktif = false;
+    // INIT SANGAT MINIMAL: Navigasi + Jam + Toggle Tema + Placeholder aksi
+    const $ = (s, r=document)=>r.querySelector(s);
+    const $$ = (s, r=document)=>Array.from(r.querySelectorAll(s));
 
-      // Navigasi aman
-      document.querySelectorAll('.sidebar a').forEach(a => {
-        a.addEventListener('click', () => {
-          const id = a.getAttribute('data-target');
-          if (!id) return;
-          document.querySelectorAll('.content').forEach(s => s.classList.remove('active'));
-          const target = document.getElementById(id);
-          if (target) target.classList.add('active');
-
-          document.querySelectorAll('.sidebar a').forEach(x => x.classList.remove('active'));
-          a.classList.add('active');
-        });
+    // Navigasi
+    $$('.menu a').forEach(a=>{
+      a.addEventListener('click', e=>{
+        e.preventDefault();
+        const id = a.dataset.target;
+        if(!id) return;
+        $$('.content').forEach(sec=>sec.classList.remove('active'));
+        $('#'+id)?.classList.add('active');
+        $$('.menu a').forEach(x=>x.classList.remove('active'));
+        a.classList.add('active');
       });
+    });
 
-      // Theme toggle aman
-      const theme = document.getElementById('theme');
-      const themeBtn = document.getElementById('themeBtn');
-      if (theme && themeBtn) {
-        themeBtn.addEventListener('click', () => {
-          theme.classList.toggle('day-theme');
-          theme.classList.toggle('night-theme');
-          themeBtn.textContent = theme.classList.contains('night-theme') ? '🌞' : '🌙';
-        });
-      }
+    // Jam
+    function updateClock(){
+      const now = new Date();
+      const date = now.toLocaleDateString('id-ID', {weekday:'long', year:'numeric', month:'long', day:'numeric'});
+      const time = now.toLocaleTimeString('id-ID', {hour12:false});
+      $('#clock').textContent = `${date} | ${time}`;
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
 
-      // Clock aman
-      const clockEl = document.getElementById('clock');
-      function updateClock() {
-        const now = new Date();
-        const date = now.toLocaleDateString('id-ID', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
-        const time = now.toLocaleTimeString('id-ID', { hour12:false });
-        if (clockEl) clockEl.textContent = `${date} | ${time}`;
-      }
-      updateClock();
-      setInterval(updateClock, 1000);
+    // Tema
+    $('#themeBtn').addEventListener('click', ()=>{
+      document.body.classList.toggle('day-theme');
+    });
 
-      // Countdown harian aman (tanpa mematikan logika)
-      const cdEl = document.getElementById('countdown');
-      function to2(n){ return String(n).padStart(2,'0'); }
-      function updateCountdownToSix(){
-        const now = new Date();
-        const target = new Date(now);
-        target.setHours(6,0,0,0);
-        if (now >= target) target.setDate(target.getDate()+1);
-        const diff = Math.max(0, target - now);
-        const h = to2(Math.floor(diff/3600000));
-        const m = to2(Math.floor((diff%3600000)/60000));
-        const s = to2(Math.floor((diff%60000)/1000));
-        if (cdEl) cdEl.textContent = `${h}:${m}:${s}`;
-      }
-      updateCountdownToSix();
-      setInterval(updateCountdownToSix, 1000);
+    // Reset UI (tidak hapus data apapun)
+    $('#resetBtn').addEventListener('click', ()=>{
+      // Kembalikan tab ke Dashboard
+      $$('.content').forEach(s=>s.classList.remove('active'));
+      $('#dashboard').classList.add('active');
+      $$('.menu a').forEach(x=>x.classList.remove('active'));
+      $('[data-target="dashboard"]').classList.add('active');
+      // Status teks default
+      $('#runStatus').innerHTML = '<span class="status-off">Belum berjalan</span>';
+      $('#countdown').textContent = '00:00:00';
+      $('#contractCountdown').textContent = '0h 0j 0m 0d';
+      $('#usdtBalance').textContent = '0.00 USDT';
+      $('#bossxAmount').textContent = '0.0000000000 BossX';
+      $('#rewardAmount').textContent = '0.0000000000 BossX';
+      alert('UI direset. Siap lanjut langkah berikutnya.');
+    });
 
-      // Status tombol ON aman (hanya ubah tampilan)
-      const runBtn = document.getElementById('runBtn');
-      const runStatus = document.getElementById('runStatus');
-      if (runBtn && runStatus) {
-        runBtn.addEventListener('click', () => {
-          validasiAktif = !validasiAktif;
-          runStatus.innerHTML = validasiAktif
-            ? "<span class='withdraw-status-success'>Berjalan ✅</span>"
-            : "<span class='withdraw-status-pending'>Belum berjalan</span>";
-        });
-      }
+    // Tombol ON (tampilan saja, belum ada perhitungan)
+    $('#runBtn').addEventListener('click', ()=>{
+      const on = $('#runStatus').textContent.includes('Belum');
+      $('#runStatus').innerHTML = on
+        ? '<span class="status-on">Berjalan ✅</span>'
+        : '<span class="status-off">Belum berjalan</span>';
+    });
 
-      // Placeholder saldo & reward tetap tampil stabil
-      const usdtBalance = document.getElementById('usdtBalance');
-      const rewardAmount = document.getElementById('rewardAmount');
-      if (usdtBalance) usdtBalance.textContent = "0.00 USDT";
-      if (rewardAmount) rewardAmount.textContent = "0.0000000000 BossX";
+    // Form sederhana (placeholder)
+    $('#nodeForm').addEventListener('submit', e=>{
+      e.preventDefault();
+      const v = parseFloat($('#nodeAmount').value);
+      if(isNaN(v) || v < 10){ alert('Minimal aktivasi 10 BOSSX'); return; }
+      const now = new Date();
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${now.toLocaleDateString('id-ID',{weekday:'long'})}</td>
+        <td>${now.getDate()}</td>
+        <td>${now.toLocaleDateString('id-ID',{month:'long'})}</td>
+        <td>${now.getFullYear()}</td>
+        <td>${String(now.getHours()).padStart(2,'0')}</td>
+        <td>${String(now.getMinutes()).padStart(2,'0')}</td>
+        <td>${String(now.getSeconds()).padStart(2,'0')}</td>
+        <td>${v} BOSSX</td>
+        <td class="status-on">Aktif</td>
+        <td>-</td>`;
+      $('#historyBody').prepend(tr);
+      alert('Aktivasi dicatat ✅');
+      e.target.reset();
+    });
 
-      // Form aktivasi masternode: hanya catat ke tabel (tanpa logika kontrak dulu)
-      const nodeForm = document.getElementById('nodeForm');
-      if (nodeForm) {
-        nodeForm.addEventListener('submit', (e) => {
-          e.preventDefault();
-          const v = parseFloat(document.getElementById('nodeAmount').value);
-          if (isNaN(v) || v < 10) { alert("Minimal aktivasi 10 BOSSX"); return; }
-          const now = new Date();
-          const tbody = document.querySelector('#historyValidasi tbody');
-          if (tbody) {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-              <td>${now.toLocaleDateString('id-ID',{weekday:'long'})}</td>
-              <td>${now.getDate()}</td>
-              <td>${now.toLocaleDateString('id-ID',{month:'long'})}</td>
-              <td>${now.getFullYear()}</td>
-              <td>${to2(now.getHours())}</td>
-              <td>${to2(now.getMinutes())}</td>
-              <td>${to2(now.getSeconds())}</td>
-              <td>${v} BOSSX</td>
-              <td class="withdraw-status-success">Aktif</td>
-              <td>-</td>
-            `;
-            tbody.prepend(tr);
-          }
-          alert("Masternode dicatat ✅");
-          nodeForm.reset();
-        });
-      }
+    $('#convertBtn').addEventListener('click', ()=>{
+      alert('Minimal convert 1 BOSSX. Logika konversi akan kita aktifkan setelah baseline OK.');
+    });
 
-      // Convert tombol aman (tanpa logika saldo dulu)
-      const convertBtn = document.getElementById('convertBtn');
-      if (convertBtn) {
-        convertBtn.addEventListener('click', () => {
-          alert("Minimal convert 1 BOSSX (logika konversi akan ditambahkan setelah baseline OK).");
-        });
-      }
+    $('#withdrawForm').addEventListener('submit', e=>{
+      e.preventDefault();
+      const amt = parseFloat($('#amount').value);
+      if(isNaN(amt) || amt < 10){ alert('Minimal 10 USDT'); return; }
+      alert('Permintaan withdraw dicatat (placeholder).');
+      e.target.reset();
+    });
+
+    $('#p2pForm').addEventListener('submit', e=>{
+      e.preventDefault();
+      const u = $('#p2pUsername').value.trim();
+      const a = parseFloat($('#p2pAmount').value);
+      if(!u || isNaN(a) || a < 1){ alert('Lengkapi data P2P dengan benar.'); return; }
+      alert('Transaksi P2P dicatat (placeholder).');
+      e.target.reset();
     });
   </script>
 </body>
