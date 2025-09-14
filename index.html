@@ -12,18 +12,33 @@
         margin: 0;
         padding: 20px;
     }
-    h1 { text-align: center; }
-    .card {
-        background: rgba(0,0,0,0.3);
-        padding: 15px;
-        border-radius: 10px;
+    h1 {
+        text-align: center;
         margin-bottom: 20px;
+    }
+    .card {
+        background: rgba(0,0,0,0.4);
+        border-radius: 12px;
+        padding: 15px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    .card h2 {
+        margin-top: 0;
+        font-size: 1.2em;
+        border-bottom: 1px solid gold;
+        padding-bottom: 5px;
+    }
+    .status {
+        font-size: 1.1em;
+        margin-bottom: 10px;
     }
     input, button {
         padding: 10px;
         border: none;
-        border-radius: 5px;
+        border-radius: 6px;
         margin-top: 5px;
+        font-size: 1em;
     }
     input {
         width: 100%;
@@ -34,20 +49,44 @@
         color: black;
         font-weight: bold;
         cursor: pointer;
+        width: 100%;
+        transition: background 0.4s ease, transform 0.2s ease;
     }
     button:disabled {
         background: gray;
         cursor: not-allowed;
     }
+    button:active {
+        transform: scale(0.95);
+    }
     table {
         width: 100%;
         border-collapse: collapse;
         margin-top: 10px;
+        font-size: 0.9em;
     }
     th, td {
         border: 1px solid gold;
-        padding: 8px;
+        padding: 6px;
         text-align: center;
+    }
+    /* Animasi */
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+        100% { transform: scale(1); }
+    }
+    @keyframes fadeStatus {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    .status span {
+        display: inline-block;
+        animation: fadeStatus 0.5s ease-in-out;
+        transition: color 0.5s ease;
+    }
+    .reward-anim {
+        animation: pulse 0.4s ease;
     }
 </style>
 </head>
@@ -56,13 +95,14 @@
 <h1>BossX Validator</h1>
 
 <div class="card">
-    <h2>Status: <span id="statusValidator">Belum Aktif</span></h2>
+    <h2>Aktivasi Validator</h2>
+    <div class="status">Status: <span id="statusValidator">Belum Aktif</span></div>
     <input type="number" id="inputBossX" placeholder="Masukkan jumlah BossX">
     <button id="btnAktivasi">Aktivasi Validator</button>
 </div>
 
 <div class="card">
-    <h2>Kontrol Validator</h2>
+    <h2>Kontrol Masternode</h2>
     <button id="btnPower">Power ON</button>
     <p>Masa Kontrak: <span id="masaKontrak">-</span></p>
     <p>Reward Validasi: <span id="rewardValidasi">0</span> USDT</p>
@@ -92,6 +132,15 @@ let dailyTimer = null;
 let contractTimer = null;
 let autoClaimTimer = null;
 
+// ===== Update Status dengan Animasi =====
+function updateStatus(text, color) {
+    const statusEl = document.getElementById("statusValidator");
+    statusEl.innerText = text;
+    statusEl.style.color = color;
+    statusEl.style.animation = "fadeStatus 0.5s ease-in-out";
+    setTimeout(() => { statusEl.style.animation = ""; }, 500);
+}
+
 // ===== Aktivasi Validator =====
 document.getElementById("btnAktivasi").addEventListener("click", function() {
     const inputBossX = parseFloat(document.getElementById("inputBossX").value);
@@ -100,7 +149,7 @@ document.getElementById("btnAktivasi").addEventListener("click", function() {
         validatorStatus = "Aktif";
         jumlahBossX = inputBossX;
 
-        document.getElementById("statusValidator").innerText = "Aktif ✅";
+        updateStatus("Aktif ✅", "gold");
         document.getElementById("btnAktivasi").disabled = true;
 
         tambahHistoryAktivasi(inputBossX);
@@ -134,7 +183,7 @@ document.getElementById("btnPower").addEventListener("click", function() {
             contractEndTime = new Date(contractStartTime.getTime() + (2678400 * 1000));
         }
 
-        document.getElementById("statusValidator").innerText = "Running ⏳";
+        updateStatus("Running ⏳", "lightgreen");
         document.getElementById("btnPower").disabled = true;
 
         startDailyCountdown();
@@ -175,9 +224,14 @@ function startAutoClaim() {
     autoClaimTimer = setInterval(() => {
         if (runningStatus) {
             const rewardPerMinute = jumlahBossX * 0.0005; // contoh rate
-            let currentReward = parseFloat(document.getElementById("rewardValidasi").innerText) || 0;
+            let rewardEl = document.getElementById("rewardValidasi");
+            let currentReward = parseFloat(rewardEl.innerText) || 0;
             currentReward += rewardPerMinute;
-            document.getElementById("rewardValidasi").innerText = currentReward.toFixed(4);
+            rewardEl.innerText = currentReward.toFixed(4);
+
+            // Efek animasi reward
+            rewardEl.classList.add("reward-anim");
+            setTimeout(() => rewardEl.classList.remove("reward-anim"), 400);
         }
     }, 60000);
 }
@@ -185,7 +239,7 @@ function startAutoClaim() {
 // ===== Stop Running =====
 function stopRunning() {
     runningStatus = false;
-    document.getElementById("statusValidator").innerText = "Off ⛔";
+    updateStatus("Off ⛔", "red");
     document.getElementById("btnPower").disabled = false;
     clearInterval(dailyTimer);
     clearInterval(autoClaimTimer);
@@ -201,6 +255,5 @@ function formatTime(ms) {
     return `${days}h ${hours}j ${minutes}m ${seconds}d`;
 }
 </script>
-
 </body>
 </html>
