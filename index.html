@@ -172,28 +172,57 @@
 
         </div>
 
-        <!-- History Deposit -->
+        <!-- History Deposit USDT -->
         <div class="card">
           <div class="card-header"><h3>History Deposit USDT</h3></div>
-          <div class="card-body">
-            <table>
-              <thead><tr><th>Tanggal</th><th>Jumlah</th><th>Status</th></tr></thead>
+          <div class="card-body" style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse;">
+              <thead style="background-color: rgba(255,255,255,0.1);">
+                <tr>
+                  <th style="padding: 10px; text-align: left;">Tanggal</th>
+                  <th style="padding: 10px; text-align: left;">Jumlah</th>
+                  <th style="padding: 10px; text-align: left;">Status</th>
+                </tr>
+              </thead>
               <tbody>
-                <tr><td>2025-09-10</td><td>100 USDT</td><td>Sukses</td></tr>
-                <tr><td>2025-09-12</td><td>50 USDT</td><td>Pending</td></tr>
+                <tr>
+                  <td style="padding: 10px;">2025-09-10</td>
+                  <td style="padding: 10px;">100 USDT</td>
+                  <td style="padding: 10px;">Sukses</td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px;">2025-09-12</td>
+                  <td style="padding: 10px;">50 USDT</td>
+                  <td style="padding: 10px;">Pending</td>
+                </tr>
               </tbody>
             </table>
           </div>
         </div>
 
+        <!-- History Deposit BossX -->
         <div class="card">
           <div class="card-header"><h3>History Deposit BossX</h3></div>
-          <div class="card-body">
-            <table>
-              <thead><tr><th>Tanggal</th><th>Jumlah</th><th>Status</th></tr></thead>
+          <div class="card-body" style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse;">
+              <thead style="background-color: rgba(255,255,255,0.1);">
+                <tr>
+                  <th style="padding: 10px; text-align: left;">Tanggal</th>
+                  <th style="padding: 10px; text-align: left;">Jumlah</th>
+                  <th style="padding: 10px; text-align: left;">Status</th>
+                </tr>
+              </thead>
               <tbody>
-                <tr><td>2025-09-08</td><td>500 BOSSX</td><td>Sukses</td></tr>
-                <tr><td>2025-09-11</td><td>250 BOSSX</td><td>Pending</td></tr>
+                <tr>
+                  <td style="padding: 10px;">2025-09-08</td>
+                  <td style="padding: 10px;">500 BOSSX</td>
+                  <td style="padding: 10px;">Sukses</td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px;">2025-09-11</td>
+                  <td style="padding: 10px;">250 BOSSX</td>
+                  <td style="padding: 10px;">Pending</td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -322,7 +351,6 @@
   </div>
   <!-- Script SPA -->
   <script>
-    // Jam real-time
     function updateClock() {
       const now = new Date();
       const date = now.toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
@@ -330,7 +358,6 @@
       document.getElementById('clock').textContent = `${date} | ${time}`;
     }
 
-    // Tema siang/malam
     function toggleTheme() {
       const theme = document.getElementById('theme');
       const btn = document.getElementById('themeBtn');
@@ -339,7 +366,6 @@
       btn.textContent = theme.classList.contains('night-theme') ? "🌞" : "🌙";
     }
 
-    // Navigasi antar menu
     function showSection(id) {
       document.querySelectorAll('.content').forEach(s => s.classList.remove('active'));
       document.getElementById(id).classList.add('active');
@@ -347,18 +373,15 @@
       document.getElementById('menu-' + id).classList.add('active');
     }
 
-    // Copy wallet
     function copyWallet(id) {
       const text = document.getElementById(id).textContent;
       navigator.clipboard.writeText(text).then(() => alert("Wallet address copied: " + text));
     }
 
-    // Tombol Max di Withdrawal
     function setMax() {
       document.getElementById('amount').value = 100;
     }
 
-    // Submit Withdrawal
     document.getElementById('withdrawForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const amount = parseFloat(document.getElementById('amount').value);
@@ -391,7 +414,6 @@
       alert("Permintaan penarikan berhasil dikirim!");
     });
 
-    // Submit Peer to Peer
     document.getElementById('p2pForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const username = document.getElementById('p2pUsername').value.trim();
@@ -433,7 +455,6 @@
       alert("Transfer berhasil dikirim ke " + username);
     });
 
-    // Aktivasi Node
     document.getElementById('nodeForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const amount = parseFloat(document.getElementById('nodeAmount').value);
@@ -454,7 +475,6 @@
       }, 4000);
     });
 
-    // Validasi Running
     let validasiAktif = false;
 
     function updateCountdown() {
@@ -485,7 +505,6 @@
       alert("Validasi berhasil dijalankan!");
     });
 
-    // Jalankan jam dan countdown
     setInterval(updateClock, 1000);
     setInterval(updateCountdown, 1000);
     updateClock();
