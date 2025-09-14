@@ -6,39 +6,107 @@
   <title>BossX</title>
   <style>
     * { box-sizing: border-box; }
-    body { margin: 0; font-family: 'Segoe UI', sans-serif; color: white; }
+    body { margin: 0; font-family: 'Segoe UI', sans-serif; color: gold; }
+
     .container { display: flex; min-height: 100vh; flex-direction: row; }
+
     .sidebar { width: 250px; padding: 30px 20px; flex-shrink: 0; }
-    .sidebar-header { display: flex; align-items: center; margin-bottom: 40px; margin-top: -5px; }
+
     .sidebar-header img { width: 60px; height: 60px; border-radius: 8px; margin-right: 10px; }
-    .sidebar-header h2 { margin: 0; font-size: 22px; font-weight: bold; }
-    .sidebar a { display: block; color: white; text-decoration: none; margin: 12px 0; font-weight: bold; cursor: pointer; }
+    .sidebar-header h2 { margin: 0; font-size: 22px; font-weight: bold; color: gold; }
+
+    .sidebar a {
+      display: block;
+      color: gold;
+      text-decoration: none;
+      margin: 12px 0;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
     .sidebar a.active { text-decoration: underline; }
     .sidebar a:hover { opacity: 0.8; padding-left: 10px; transition: 0.3s; }
+
     .main { flex: 1; display: flex; flex-direction: column; }
+
     .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; }
-    .clock { font-size: 20px; font-weight: bold; }
-    .profile { display: flex; align-items: center; text-align: right; }
+    .clock { font-size: 20px; font-weight: bold; color: gold; }
+
     .profile img { width: 60px; height: 60px; border-radius: 50%; margin-left: 15px; }
-    .profile-info { margin-left: 15px; }
-    .profile-info h3 { margin: 0; font-size: 20px; font-weight: bold; }
-    .profile-info p { margin: 2px 0 0; font-size: 16px; font-weight: bold; }
-    .theme-toggle { background: none; border: none; color: white; font-size: 26px; cursor: pointer; margin-right: 20px; }
-    .theme-toggle:hover { opacity: 0.8; }
+    .profile-info h3, .profile-info p { margin: 0; font-weight: bold; color: gold; }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      color: gold;
+      font-size: 26px;
+      cursor: pointer;
+      margin-right: 20px;
+    }
+
     .content { padding: 40px; flex: 1; display: none; }
     .content.active { display: block; }
-    .card { background: rgba(255,255,255,0.08); border-radius: 10px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-    .card-header h2, .card-header h3 { margin: 0 0 15px; }
-    .card-body label { display: block; margin-top: 10px; font-weight: bold; }
-    .card-body input, .card-body select { width: 100%; padding: 8px; margin-top: 5px; border-radius: 5px; border: none; }
-    .btn-primary { background: #ff69b4; border: none; padding: 10px; border-radius: 5px; color: white; font-weight: bold; margin-top: 15px; cursor: pointer; }
-    .card-footer { font-size: 14px; margin-top: 15px; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 5px; }
+
+    .card {
+      background: rgba(255,255,255,0.12);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      color: gold;
+    }
+
+    .card-header h2, .card-header h3 { margin: 0 0 15px; color: gold; }
+
+    .card-body label { display: block; margin-top: 10px; font-weight: bold; color: gold; }
+    .card-body input, .card-body select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: none;
+      background: rgba(255,255,255,0.1);
+      color: gold;
+    }
+
+    .btn-primary {
+      background: #ff69b4;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      color: gold;
+      font-weight: bold;
+      margin-top: 15px;
+      cursor: pointer;
+    }
+
+    .card-footer {
+      font-size: 14px;
+      margin-top: 15px;
+      background: rgba(0,0,0,0.2);
+      padding: 10px;
+      border-radius: 5px;
+      color: gold;
+    }
+
     .withdraw-status-pending { color: #ffcc00; animation: blink 1s infinite; }
     .withdraw-status-success { color: #00ff88; opacity: 0; animation: fadeIn 1s forwards; }
+
     @keyframes blink { 0%, 50%, 100% { opacity: 1; } 25%, 75% { opacity: 0.5; } }
     @keyframes fadeIn { to { opacity: 1; } }
-    .day-theme { background: linear-gradient(135deg, #8e44ad, #ff69b4); }
-    .night-theme { background: linear-gradient(135deg, #000000, #434343); }
+
+    .day-theme {
+      background: linear-gradient(135deg, #c850c0, #ff69b4);
+    }
+
+    .night-theme {
+      background: linear-gradient(135deg, #6a0572, #ff1493);
+    }
+
+    table th, table td {
+      color: gold;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
   </style>
 </head>
 <body>
@@ -114,7 +182,7 @@
                 background-color: rgba(255,255,255,0.1);
                 border: none;
                 font-size: 28px;
-                color: white;
+                color: gold;
                 border-radius: 50%;
                 width: 60px;
                 height: 60px;
