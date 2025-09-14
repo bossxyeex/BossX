@@ -275,6 +275,55 @@
             </div>
           </div>
 
+          <!-- Card Balance USDT -->
+          <div class="card" style="flex: 1; min-width: 300px;">
+            <div class="card-header">
+              <h2>Balance USDT</h2>
+            </div>
+            <div class="card-body" style="text-align: center;">
+              <p><strong id="usdtBalance">0.00 USDT</strong></p>
+            </div>
+          </div>
+
+        </div> <!-- penutup flex container 4 card -->
+
+        <!-- Card History Validasi -->
+        <div class="card" style="margin-top: 20px; width: 100%;">
+          <div class="card-header">
+            <h3>History Validasi</h3>
+          </div>
+          <div class="card-body" style="overflow-x: auto;">
+            <table id="historyValidasi" style="width: 100%; border-collapse: collapse;">
+              <thead style="background-color: rgba(255,255,255,0.1);">
+                <tr>
+                  <th style="padding: 10px;">Hari</th>
+                  <th style="padding: 10px;">Tanggal</th>
+                  <th style="padding: 10px;">Bulan</th>
+                  <th style="padding: 10px;">Tahun</th>
+                  <th style="padding: 10px;">Jam</th>
+                  <th style="padding: 10px;">Menit</th>
+                  <th style="padding: 10px;">Detik</th>
+                  <th style="padding: 10px;">Jumlah Aktivasi</th>
+                  <th style="padding: 10px;">Status</th>
+                  <th style="padding: 10px;">Masa Akhir Kontrak</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="padding: 10px;">Minggu</td>
+                  <td style="padding: 10px;">14</td>
+                  <td style="padding: 10px;">September</td>
+                  <td style="padding: 10px;">2025</td>
+                  <td style="padding: 10px;">10</td>
+                  <td style="padding: 10px;">45</td>
+                  <td style="padding: 10px;">30</td>
+                  <td style="padding: 10px;">50 BOSSX</td>
+                  <td style="padding: 10px;">Aktif</td>
+                  <td style="padding: 10px;">14 September 2026</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
       <!-- Deposit -->
@@ -622,6 +671,33 @@
       setTimeout(() => {
         statusBox.innerHTML = "Status: <span class='withdraw-status-success'>Aktif ✅</span>";
         alert("Node berhasil diaktivasi!");
+
+        // Tambah ke History Validasi
+        const now = new Date();
+        const hari = now.toLocaleDateString('id-ID', { weekday: 'long' });
+        const tanggal = now.getDate();
+        const bulan = now.toLocaleDateString('id-ID', { month: 'long' });
+        const tahun = now.getFullYear();
+        const jam = now.getHours();
+        const menit = now.getMinutes();
+        const detik = now.getSeconds();
+        const masaAkhir = `${tanggal} ${bulan} ${tahun + 1}`;
+
+        const tbody = document.querySelector('#historyValidasi tbody');
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${hari}</td>
+          <td>${tanggal}</td>
+          <td>${bulan}</td>
+          <td>${tahun}</td>
+          <td>${jam}</td>
+          <td>${menit}</td>
+          <td>${detik}</td>
+          <td>${amount} BOSSX</td>
+          <td class="withdraw-status-success">Aktif</td>
+          <td>${masaAkhir}</td>
+        `;
+        tbody.prepend(row);
       }, 4000);
     });
 
