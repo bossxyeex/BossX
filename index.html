@@ -1,273 +1,664 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>BossX — Restart Bersih</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BossX</title>
   <style>
-    /* Reset */
-    *{margin:0;padding:0;box-sizing:border-box}
-    :root{
-      --bg:#100015; --panel:#1b0a23; --accent:#8a2be2; --accent-2:#ff4dd2; --gold:#ffd66e; --text:#f7f2fa;
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Segoe UI', sans-serif; color: gold; }
+
+    .container { display: flex; min-height: 100vh; flex-direction: row; }
+
+    .sidebar { width: 250px; padding: 30px 20px; flex-shrink: 0; }
+
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      margin-bottom: 40px;
     }
-    body{font:14px/1.5 system-ui,Segoe UI,Arial;background:var(--bg);color:var(--text);display:flex;min-height:100vh}
-    /* Sidebar */
-    .sidebar{width:240px;background:linear-gradient(180deg,#19001f, #290033);padding:20px;display:flex;flex-direction:column;gap:10px}
-    .brand{font-weight:700;color:var(--gold);letter-spacing:0.5px;margin-bottom:10px}
-    .menu a{display:block;padding:10px 12px;border-radius:8px;color:#d8cde6;text-decoration:none}
-    .menu a.active,.menu a:hover{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff}
-    /* Main */
-    .main{flex:1;padding:20px}
-    .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
-    .topbar button{background:transparent;border:1px solid rgba(255,255,255,.15);color:#fff;border-radius:8px;padding:6px 10px;cursor:pointer}
-    /* Section */
-    .content{display:none}
-    .content.active{display:block}
-    /* Cards */
-    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-    .card{background:linear-gradient(180deg,#1a0b22,#110617);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px}
-    .card h3{color:var(--gold);margin-bottom:8px;font-weight:600}
-    .value{font-size:1.1rem;opacity:.95}
-    /* Table */
-    .table-wrap{overflow:auto}
-    table{width:100%;border-collapse:collapse}
-    th,td{padding:10px;border-bottom:1px solid rgba(255,255,255,.08);text-align:left}
-    th{color:var(--gold);background:rgba(255,255,255,.04)}
-    /* Status */
-    .status-off{color:#ffb057;font-weight:700}
-    .status-on{color:#63ffa6;font-weight:700}
+
+    .sidebar-header img {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      margin-right: 10px;
+    }
+
+    .sidebar-header h2 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: bold;
+      color: gold;
+    }
+
+    .sidebar a {
+      display: block;
+      color: gold;
+      text-decoration: none;
+      margin: 12px 0;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .sidebar a.active { text-decoration: underline; }
+    .sidebar a:hover { opacity: 0.8; padding-left: 10px; transition: 0.3s; }
+
+    .main { flex: 1; display: flex; flex-direction: column; }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+    }
+
+    .clock {
+      font-size: 20px;
+      font-weight: bold;
+      color: gold;
+    }
+
+    .profile {
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      text-align: right;
+    }
+
+    .profile-info {
+      margin-right: 15px;
+      text-align: right;
+    }
+
+    .profile-info h3,
+    .profile-info p {
+      margin: 0;
+      font-weight: bold;
+      color: gold;
+    }
+
+    .profile img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+    }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      color: gold;
+      font-size: 26px;
+      cursor: pointer;
+      margin-right: 20px;
+    }
+
+    .content {
+      padding: 40px;
+      flex: 1;
+      display: none;
+    }
+
+    .content.active { display: block; }
+
+    .card {
+      background: rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      color: gold;
+    }
+
+    .card-header h2,
+    .card-header h3 {
+      margin: 0 0 15px;
+      color: gold;
+    }
+
+    .card-body label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+      color: gold;
+    }
+
+    .card-body input,
+    .card-body select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: none;
+      background: rgba(255,255,255,0.1);
+      color: gold;
+    }
+
+    .btn-primary {
+      background: #ff69b4;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      color: gold;
+      font-weight: bold;
+      margin-top: 15px;
+      cursor: pointer;
+    }
+
+    .card-footer {
+      font-size: 14px;
+      margin-top: 15px;
+      background: rgba(0,0,0,0.2);
+      padding: 10px;
+      border-radius: 5px;
+      color: gold;
+    }
+
+    .withdraw-status-pending { color: #ffcc00; animation: blink 1s infinite; }
+    .withdraw-status-success { color: #00ff88; opacity: 0; animation: fadeIn 1s forwards; }
+
+    @keyframes blink { 0%, 50%, 100% { opacity: 1; } 25%, 75% { opacity: 0.5; } }
+    @keyframes fadeIn { to { opacity: 1; } }
+
+    .day-theme {
+      background: linear-gradient(135deg, #c850c0, #ff69b4);
+    }
+
+    .night-theme {
+      background: #000000;
+    }
+
+    table th,
+    table td {
+      color: gold;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
   </style>
 </head>
 <body>
-  <aside class="sidebar">
-    <div class="brand">BossX</div>
-    <nav class="menu">
-      <a href="#" data-target="dashboard" class="active">Dashboard</a>
-      <a href="#" data-target="validasi">Validasi Running</a>
-      <a href="#" data-target="reward">Reward Validasi</a>
-      <a href="#" data-target="history">History Aktivasi</a>
-      <a href="#" data-target="withdraw">Withdraw</a>
-      <a href="#" data-target="p2p">Peer to Peer</a>
-    </nav>
-  </aside>
-
-  <main class="main">
-    <div class="topbar">
-      <div id="clock">—</div>
-      <div style="display:flex;gap:8px">
-        <button type="button" id="themeBtn">Tema</button>
-        <button type="button" id="resetBtn" title="Reset tampilan (tidak hapus data)">Reset UI</button>
+  <div class="container day-theme" id="theme">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <img src="https://i.ibb.co/qYBkPDH3/Picsart-25-04-01-16-25-47-054.png" alt="Logo BossX" />
+        <h2>BossX</h2>
       </div>
+      <a id="menu-dashboard" onclick="showSection('dashboard')" class="active">Dashboard</a>
+      <a id="menu-deposit" onclick="showSection('deposit')">Deposit</a>
+      <a id="menu-withdraw" onclick="showSection('withdraw')">Withdrawal</a>
+      <a id="menu-p2p" onclick="showSection('p2p')">Peer to Peer</a>
+      <a id="menu-faq" onclick="showSection('faq')">FAQ</a>
+      <a id="menu-setting" onclick="showSection('setting')">Setting</a>
+      <a href="#">Logout</a>
     </div>
 
-    <!-- Dashboard -->
-    <section id="dashboard" class="content active">
-      <h1>Dashboard</h1>
-      <div class="cards">
-        <div class="card">
-          <h3>Status validasi</h3>
-          <div id="runStatus" class="value status-off">Belum berjalan</div>
-          <button id="runBtn" type="button" style="margin-top:10px">ON</button>
-        </div>
-        <div class="card">
-          <h3>Auto-OFF harian</h3>
-          <div class="value">Matikan otomatis jam 06:00</div>
-          <div class="value" id="countdown">00:00:00</div>
-        </div>
-        <div class="card">
-          <h3>Countdown kontrak</h3>
-          <div class="value" id="contractCountdown">0h 0j 0m 0d</div>
-        </div>
-        <div class="card">
-          <h3>Saldo USDT</h3>
-          <div class="value" id="usdtBalance">0.00 USDT</div>
+    <!-- Main Area -->
+    <div class="main">
+      <!-- Header -->
+      <div class="header">
+        <div class="clock" id="clock">Memuat waktu...</div>
+        <div style="display: flex; align-items: center;">
+          <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">🌙</button>
+          <div class="profile">
+            <div class="profile-info">
+              <h3>Fery Muliawan</h3>
+              <p>Validator ID: 8055x</p>
+            </div>
+            <img src="https://i.ibb.co/gbVsGLy0/FB-IMG-1617237754232.jpg" alt="Foto Fery" />
+          </div>
         </div>
       </div>
-    </section>
 
-    <!-- Validasi -->
-    <section id="validasi" class="content">
-      <h1>Validasi Running</h1>
-      <div class="cards">
-        <div class="card">
-          <h3>Siklus 60 detik</h3>
-          <div class="value" id="bossxAmount">0.0000000000 BossX</div>
+      <!-- Dashboard -->
+      <section id="dashboard" class="content active">
+        <h1>Dashboard</h1>
+        <p>Selamat datang di Dashboard BossX.</p>
+
+        <!-- Baris Card Horizontal -->
+        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+
+          <!-- Card Aktivasi Node -->
+          <div class="card" style="flex: 1; min-width: 300px;">
+            <div class="card-header">
+              <h2>Aktivasi Node</h2>
+            </div>
+            <div class="card-body">
+              <p><strong>Saldo Aktivasi:</strong> 0,0000000000 BOSSX</p>
+              <form id="nodeForm">
+                <label>Jumlah Aktivasi (minimal 10 BOSSX):</label>
+                <input type="number" id="nodeAmount" placeholder="Masukkan jumlah BOSSX" required>
+                <button type="submit" class="btn-primary">Aktivkan Validasi</button>
+              </form>
+            </div>
+            <div class="card-footer" id="nodeStatus">
+              Status: Belum Aktif
+            </div>
+          </div>
+
+          <!-- Card Validasi Running -->
+          <div class="card" style="flex: 1; min-width: 300px;">
+            <div class="card-header">
+              <h2>Validasi Running</h2>
+            </div>
+            <div class="card-body" style="text-align: center;">
+              <p><strong id="bossxAmount">0.0000000000 BossX</strong></p>
+              <p id="runStatus">Belum berjalan</p>
+              <p id="countdownText">Stop validasi jam 06:00 dalam: <span id="countdown">--:--:--</span></p>
+              <button id="runBtn" style="
+                background-color: black;
+                border: 3px solid gold;
+                border-radius: 50%;
+                width: 80px;
+                height: 80px;
+                font-size: 32px;
+                color: gold;
+                cursor: pointer;
+                box-shadow: 0 0 15px rgba(255,215,0,0.6);
+                transition: all 0.3s ease;
+              " onmouseover="this.style.boxShadow='0 0 25px rgba(255,215,0,1)'" 
+                 onmouseout="this.style.boxShadow='0 0 15px rgba(255,215,0,0.6)'">
+                ⏻
+              </button>
+            </div>
+          </div>
+
+          <!-- Card Reward Validasi -->
+          <div class="card" style="flex: 1; min-width: 300px;">
+            <div class="card-header">
+              <h2>Reward Validasi</h2>
+            </div>
+            <div class="card-body" style="text-align: center;">
+              <p><strong id="rewardAmount">0.0000000000 BossX</strong></p>
+              <p>Auto-claim: <span id="autoClaim">60</span>s</p>
+              <button id="convertBtn" class="btn-primary">Convert to USDT</button>
+            </div>
+          </div>
+
         </div>
-        <div class="card">
-          <h3>Aktivasi masternode</h3>
-          <form id="nodeForm">
-            <label for="nodeAmount" style="display:block;margin-bottom:6px">Jumlah (BOSSX)</label>
-            <input id="nodeAmount" type="number" step="0.0000000001" min="10" required style="width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,.15);background:transparent;color:#fff" />
-            <button type="submit" style="margin-top:10px">Aktivkan Masternode</button>
-          </form>
+      </section>
+      <!-- Deposit -->
+      <section id="deposit" class="content">
+        <h1>Halaman Deposit</h1>
+        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+          
+          <!-- Deposit USDT -->
+          <div class="card" style="flex: 1; min-width: 300px;">
+            <div class="card-header"><h2>Deposit USDT</h2></div>
+            <div class="card-body" style="text-align: center;">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=TQ3HBNdVFmTFvz9wz3AR2Siss7MRN1fuRM" alt="QR USDT">
+              <div class="wallet" id="usdtWallet">TQ3HBNdVFmTFvz9wz3AR2Siss7MRN1fuRM</div>
+              <button class="btn-primary" onclick="copyWallet('usdtWallet')">Copy Wallet</button>
+              <div class="info-box" style="margin-top: 20px; text-align: left;">
+                <strong>Catatan:</strong>
+                <ul>
+                  <li>Hanya kirim USDT melalui jaringan TRC20</li>
+                  <li>Deposit akan masuk setelah 1x konfirmasi</li>
+                  <li>Alamat tetap dan bisa digunakan berulang kali</li>
+                  <li>Deposit di bawah minimum tidak akan masuk</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Deposit BossX -->
+          <div class="card" style="flex: 1; min-width: 300px;">
+            <div class="card-header"><h2>Deposit BossX</h2></div>
+            <div class="card-body" style="text-align: center;">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=TTfKjrU18mi223ukVmz6FMNgBkma13kVA3" alt="QR BossX">
+              <div class="wallet" id="bossxWallet">TTfKjrU18mi223ukVmz6FMNgBkma13kVA3</div>
+              <button class="btn-primary" onclick="copyWallet('bossxWallet')">Copy Wallet</button>
+              <div class="info-box" style="margin-top: 20px; text-align: left;">
+                <strong>Catatan:</strong>
+                <ul>
+                  <li>Hanya kirim BossX melalui jaringan TRC20</li>
+                  <li>Deposit akan masuk setelah 1x konfirmasi</li>
+                  <li>Alamat tetap dan bisa digunakan berulang kali</li>
+                  <li>Deposit di bawah minimum tidak akan masuk</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
         </div>
-      </div>
-    </section>
 
-    <!-- Reward -->
-    <section id="reward" class="content">
-      <h1>Reward Validasi</h1>
-      <div class="cards">
+        <!-- History Deposit USDT -->
         <div class="card">
-          <h3>Total reward</h3>
-          <div class="value" id="rewardAmount">0.0000000000 BossX</div>
-          <button id="convertBtn" type="button" style="margin-top:10px">Convert ke USDT</button>
-          <div class="value" style="opacity:.7">Minimal convert: 1 BOSSX</div>
+          <div class="card-header"><h3>History Deposit USDT</h3></div>
+          <div class="card-body" style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse;">
+              <thead style="background-color: rgba(255,255,255,0.1);">
+                <tr>
+                  <th style="padding: 10px; text-align: left;">Tanggal</th>
+                  <th style="padding: 10px; text-align: left;">Jumlah</th>
+                  <th style="padding: 10px; text-align: left;">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="padding: 10px;">2025-09-10</td>
+                  <td style="padding: 10px;">100 USDT</td>
+                  <td style="padding: 10px;">Sukses</td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px;">2025-09-12</td>
+                  <td style="padding: 10px;">50 USDT</td>
+                  <td style="padding: 10px;">Pending</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
-    </section>
 
-    <!-- History -->
-    <section id="history" class="content">
-      <h1>History Aktivasi</h1>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Hari</th><th>Tanggal</th><th>Bulan</th><th>Tahun</th>
-              <th>Jam</th><th>Menit</th><th>Detik</th>
-              <th>Jumlah Aktivasi</th><th>Status</th><th>Masa Akhir Kontrak</th>
-            </tr>
-          </thead>
-          <tbody id="historyBody"></tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- Withdraw -->
-    <section id="withdraw" class="content">
-      <h1>Withdraw USDT</h1>
-      <div class="cards">
+        <!-- History Deposit BossX -->
         <div class="card">
-          <h3>Form penarikan</h3>
-          <form id="withdrawForm">
-            <label for="amount" style="display:block;margin-bottom:6px">Jumlah (USDT)</label>
-            <input id="amount" type="number" step="0.01" min="10" required style="width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,.15);background:transparent;color:#fff" />
-            <button type="submit" style="margin-top:10px">Kirim penarikan</button>
-          </form>
+          <div class="card-header"><h3>History Deposit BossX</h3></div>
+          <div class="card-body" style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse;">
+              <thead style="background-color: rgba(255,255,255,0.1);">
+                <tr>
+                  <th style="padding: 10px; text-align: left;">Tanggal</th>
+                  <th style="padding: 10px; text-align: left;">Jumlah</th>
+                  <th style="padding: 10px; text-align: left;">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="padding: 10px;">2025-09-08</td>
+                  <td style="padding: 10px;">500 BOSSX</td>
+                  <td style="padding: 10px;">Sukses</td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px;">2025-09-11</td>
+                  <td style="padding: 10px;">250 BOSSX</td>
+                  <td style="padding: 10px;">Pending</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <!-- Withdrawal -->
+      <section id="withdraw" class="content">
+        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+          
+          <!-- Form Penarikan -->
+          <div class="card" style="flex: 1; min-width: 300px;">
+            <div class="card-header"><h2>Tarik USDT</h2></div>
+            <div class="card-body">
+              <p><strong>Saldo Tether USDt (USDT):</strong> 0 USDT</p>
+              <form id="withdrawForm">
+                <label>Metode Penarikan:</label>
+                <select><option>Alamat</option></select>
+                <label>Alamat Penerima:</label>
+                <input type="text" id="recipient" placeholder="Masukkan alamat koin di sini">
+                <label>Jaringan:</label>
+                <select><option>TRC20</option></select>
+                <label>Jumlah Tarik Koin:</label>
+                <div style="display: flex; gap: 10px;">
+                  <input type="number" id="amount" placeholder="Masukkan jumlah" style="flex: 1;">
+                  <button type="button" onclick="setMax()" class="btn-primary">Max</button>
+                </div>
+                <button type="submit" class="btn-primary">Kirim Withdraw</button>
+              </form>
+            </div>
+            <div class="card-footer">
+              <ul>
+                <li>Maksimal pengiriman 60.000 USDT per hari.</li>
+                <li>Minimal pengiriman 10 USDT.</li>
+                <li>Biaya 0,5 USDT dipotong dari jumlah pengiriman.</li>
+                <li>USDT akan masuk ke wallet Anda dalam 60 menit.</li>
+              </ul>
+            </div>
+          </div>
 
-    <!-- P2P -->
-    <section id="p2p" class="content">
-      <h1>Peer to Peer</h1>
-      <div class="cards">
-        <div class="card">
-          <h3>Kirim BOSSX</h3>
-          <form id="p2pForm">
-            <label for="p2pUsername" style="display:block;margin-bottom:6px">Username</label>
-            <input id="p2pUsername" type="text" placeholder="@username" required style="width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,.15);background:transparent;color:#fff" />
-            <label for="p2pAmount" style="display:block;margin:10px 0 6px">Jumlah (BOSSX)</label>
-            <input id="p2pAmount" type="number" step="0.0000000001" min="1" required style="width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,.15);background:transparent;color:#fff" />
-            <button type="submit" style="margin-top:10px">Kirim</button>
-          </form>
+          <!-- History Penarikan -->
+          <div class="card" style="flex: 1; min-width: 300px;">
+            <div class="card-header"><h3>History Penarikan USDT</h3></div>
+            <div class="card-body">
+              <table id="withdrawHistory">
+                <thead>
+                  <tr><th>Hari</th><th>Tanggal</th><th>Jam</th><th>Jumlah</th><th>Status</th></tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+
         </div>
-      </div>
-    </section>
-  </main>
+      </section>
+      <!-- Peer to Peer -->
+      <section id="p2p" class="content">
+        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+          
+          <!-- Form Transfer -->
+          <div class="card" style="flex: 1; min-width: 300px;">
+            <div class="card-header">
+              <h2>Transfer ke Sesama Akun Masternode</h2>
+            </div>
+            <div class="card-body">
+              <form id="p2pForm">
+                <label>Tujuan (@username):</label>
+                <input type="text" id="p2pUsername" placeholder="@nama_pengguna" required>
 
+                <label>Jumlah BOSSX:</label>
+                <input type="number" id="p2pAmount" placeholder="Minimal 1 BOSSX" required>
+
+                <button type="submit" class="btn-primary">Kirim Transfer</button>
+              </form>
+            </div>
+            <div class="card-footer">
+              <ul>
+                <li>Transfer hanya ke akun masternode yang valid (@username)</li>
+                <li>Minimal transfer 1 BOSSX</li>
+                <li>Transaksi tidak dapat dibatalkan setelah dikirim</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- History Transfer -->
+          <div class="card" style="flex: 1; min-width: 300px;">
+            <div class="card-header">
+              <h3>History Transfer P2P</h3>
+            </div>
+            <div class="card-body">
+              <table id="p2pHistory">
+                <thead>
+                  <tr>
+                    <th>Hari</th>
+                    <th>Tanggal</th>
+                    <th>Jam</th>
+                    <th>Tujuan</th>
+                    <th>Jumlah</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section id="faq" class="content">
+        <h1>FAQ</h1>
+        <p>Materi FAQ akan ditambahkan di sini.</p>
+      </section>
+
+      <!-- Setting -->
+      <section id="setting" class="content">
+        <h1>Setting</h1>
+        <p>Materi pengaturan akan ditambahkan di sini.</p>
+      </section>
+
+      <!-- Footer -->
+      <footer style="text-align: center; padding: 20px; font-weight: bold;">
+        <p>© 2025 BossX. Dibuat oleh Fery Muliawan</p>
+      </footer>
+    </div>
+  </div>
+  <!-- Script SPA -->
   <script>
-    // INIT SANGAT MINIMAL: Navigasi + Jam + Toggle Tema + Placeholder aksi
-    const $ = (s, r=document)=>r.querySelector(s);
-    const $$ = (s, r=document)=>Array.from(r.querySelectorAll(s));
-
-    // Navigasi
-    $$('.menu a').forEach(a=>{
-      a.addEventListener('click', e=>{
-        e.preventDefault();
-        const id = a.dataset.target;
-        if(!id) return;
-        $$('.content').forEach(sec=>sec.classList.remove('active'));
-        $('#'+id)?.classList.add('active');
-        $$('.menu a').forEach(x=>x.classList.remove('active'));
-        a.classList.add('active');
-      });
-    });
-
-    // Jam
-    function updateClock(){
+    function updateClock() {
       const now = new Date();
-      const date = now.toLocaleDateString('id-ID', {weekday:'long', year:'numeric', month:'long', day:'numeric'});
-      const time = now.toLocaleTimeString('id-ID', {hour12:false});
-      $('#clock').textContent = `${date} | ${time}`;
+      const date = now.toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+      const time = now.toLocaleTimeString('id-ID', { hour12: false });
+      document.getElementById('clock').textContent = `${date} | ${time}`;
     }
-    updateClock();
-    setInterval(updateClock, 1000);
 
-    // Tema
-    $('#themeBtn').addEventListener('click', ()=>{
-      document.body.classList.toggle('day-theme');
-    });
+    function toggleTheme() {
+      const theme = document.getElementById('theme');
+      const btn = document.getElementById('themeBtn');
+      theme.classList.toggle('day-theme');
+      theme.classList.toggle('night-theme');
+      btn.textContent = theme.classList.contains('night-theme') ? "🌞" : "🌙";
+    }
 
-    // Reset UI (tidak hapus data apapun)
-    $('#resetBtn').addEventListener('click', ()=>{
-      // Kembalikan tab ke Dashboard
-      $$('.content').forEach(s=>s.classList.remove('active'));
-      $('#dashboard').classList.add('active');
-      $$('.menu a').forEach(x=>x.classList.remove('active'));
-      $('[data-target="dashboard"]').classList.add('active');
-      // Status teks default
-      $('#runStatus').innerHTML = '<span class="status-off">Belum berjalan</span>';
-      $('#countdown').textContent = '00:00:00';
-      $('#contractCountdown').textContent = '0h 0j 0m 0d';
-      $('#usdtBalance').textContent = '0.00 USDT';
-      $('#bossxAmount').textContent = '0.0000000000 BossX';
-      $('#rewardAmount').textContent = '0.0000000000 BossX';
-      alert('UI direset. Siap lanjut langkah berikutnya.');
-    });
+    function showSection(id) {
+      document.querySelectorAll('.content').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
+      document.getElementById('menu-' + id).classList.add('active');
+    }
 
-    // Tombol ON (tampilan saja, belum ada perhitungan)
-    $('#runBtn').addEventListener('click', ()=>{
-      const on = $('#runStatus').textContent.includes('Belum');
-      $('#runStatus').innerHTML = on
-        ? '<span class="status-on">Berjalan ✅</span>'
-        : '<span class="status-off">Belum berjalan</span>';
-    });
+    function copyWallet(id) {
+      const text = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(text).then(() => alert("Wallet address copied: " + text));
+    }
 
-    // Form sederhana (placeholder)
-    $('#nodeForm').addEventListener('submit', e=>{
+    function setMax() {
+      document.getElementById('amount').value = 100;
+    }
+
+    document.getElementById('withdrawForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      const v = parseFloat($('#nodeAmount').value);
-      if(isNaN(v) || v < 10){ alert('Minimal aktivasi 10 BOSSX'); return; }
+      const amount = parseFloat(document.getElementById('amount').value);
+      if (isNaN(amount) || amount < 10) return alert("Minimal penarikan adalah 10 USDT");
+      if (!confirm(`Yakin mau tarik ${amount} USDT?`)) return;
+
       const now = new Date();
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${now.toLocaleDateString('id-ID',{weekday:'long'})}</td>
-        <td>${now.getDate()}</td>
-        <td>${now.toLocaleDateString('id-ID',{month:'long'})}</td>
-        <td>${now.getFullYear()}</td>
-        <td>${String(now.getHours()).padStart(2,'0')}</td>
-        <td>${String(now.getMinutes()).padStart(2,'0')}</td>
-        <td>${String(now.getSeconds()).padStart(2,'0')}</td>
-        <td>${v} BOSSX</td>
-        <td class="status-on">Aktif</td>
-        <td>-</td>`;
-      $('#historyBody').prepend(tr);
-      alert('Aktivasi dicatat ✅');
-      e.target.reset();
+      const hari = now.toLocaleDateString('id-ID', { weekday: 'long' });
+      const tanggal = now.toLocaleDateString('id-ID');
+      const jam = now.toLocaleTimeString('id-ID');
+
+      const tbody = document.querySelector('#withdrawHistory tbody');
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${hari}</td>
+        <td>${tanggal}</td>
+        <td>${jam}</td>
+        <td>${amount} USDT</td>
+        <td class="withdraw-status-pending">Pending</td>
+      `;
+      tbody.prepend(row);
+
+      setTimeout(() => {
+        const statusCell = row.querySelector('td:last-child');
+        statusCell.classList.remove('withdraw-status-pending');
+        statusCell.classList.add('withdraw-status-success');
+        statusCell.textContent = "Sukses";
+      }, 5000);
+
+      alert("Permintaan penarikan berhasil dikirim!");
     });
 
-    $('#convertBtn').addEventListener('click', ()=>{
-      alert('Minimal convert 1 BOSSX. Logika konversi akan kita aktifkan setelah baseline OK.');
-    });
-
-    $('#withdrawForm').addEventListener('submit', e=>{
+    document.getElementById('p2pForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      const amt = parseFloat($('#amount').value);
-      if(isNaN(amt) || amt < 10){ alert('Minimal 10 USDT'); return; }
-      alert('Permintaan withdraw dicatat (placeholder).');
-      e.target.reset();
+      const username = document.getElementById('p2pUsername').value.trim();
+      const amount = parseFloat(document.getElementById('p2pAmount').value);
+
+      if (!username.startsWith('@')) {
+        alert("Username harus diawali dengan @");
+        return;
+      }
+      if (isNaN(amount) || amount < 1) {
+        alert("Minimal transfer adalah 1 BOSSX");
+        return;
+      }
+
+      const now = new Date();
+      const hari = now.toLocaleDateString('id-ID', { weekday: 'long' });
+      const tanggal = now.toLocaleDateString('id-ID');
+      const jam = now.toLocaleTimeString('id-ID');
+
+      const tbody = document.querySelector('#p2pHistory tbody');
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${hari}</td>
+        <td>${tanggal}</td>
+        <td>${jam}</td>
+        <td>${username}</td>
+        <td>${amount} BOSSX</td>
+        <td class="withdraw-status-pending">Pending</td>
+      `;
+      tbody.prepend(row);
+
+      setTimeout(() => {
+        const statusCell = row.querySelector('td:last-child');
+        statusCell.classList.remove('withdraw-status-pending');
+        statusCell.classList.add('withdraw-status-success');
+        statusCell.textContent = "Sukses";
+      }, 5000);
+
+      alert("Transfer berhasil dikirim ke " + username);
     });
 
-    $('#p2pForm').addEventListener('submit', e=>{
+    document.getElementById('nodeForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      const u = $('#p2pUsername').value.trim();
-      const a = parseFloat($('#p2pAmount').value);
-      if(!u || isNaN(a) || a < 1){ alert('Lengkapi data P2P dengan benar.'); return; }
-      alert('Transaksi P2P dicatat (placeholder).');
-      e.target.reset();
+      const amount = parseFloat(document.getElementById('nodeAmount').value);
+      const statusBox = document.getElementById('nodeStatus');
+
+      if (isNaN(amount) || amount < 10) {
+        alert("Minimal aktivasi adalah 10 BOSSX");
+        return;
+      }
+
+      if (!confirm(`Yakin mau aktivasi node dengan ${amount} BOSSX?`)) return;
+
+      statusBox.innerHTML = "Status: <span class='withdraw-status-pending'>Memproses...</span>";
+
+      setTimeout(() => {
+        statusBox.innerHTML = "Status: <span class='withdraw-status-success'>Aktif ✅</span>";
+        alert("Node berhasil diaktivasi!");
+      }, 4000);
     });
+
+    let validasiAktif = false;
+
+    function updateCountdown() {
+      const now = new Date();
+      const target = new Date(now);
+      target.setHours(6, 0, 0, 0);
+      if (now >= target) target.setDate(target.getDate() + 1);
+
+      const diff = target - now;
+      const hours = String(Math.floor(diff / 3600000)).padStart(2, '0');
+      const minutes = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
+      const seconds = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
+
+      document.getElementById('countdown').textContent = `${hours}:${minutes}:${seconds}`;
+
+      if (validasiAktif && diff <= 1000) {
+        validasiAktif = false;
+        document.getElementById('runStatus').innerHTML = "<span class='withdraw-status-pending'>Berhenti ❌</span>";
+        document.getElementById('runBtn').style.backgroundColor = "rgba(255,255,255,0.1)";
+      }
+    }
+
+    document.getElementById('runBtn').addEventListener('click', function() {
+      if (validasiAktif) return;
+      validasiAktif = true;
+      document.getElementById('runStatus').innerHTML = "<span class='withdraw-status-success'>Berjalan ✅</span>";
+      document.getElementById('runBtn').style.backgroundColor = "#00ff88";
+      alert("Validasi berhasil dijalankan!");
+    });
+
+    setInterval(updateClock, 1000);
+    setInterval(updateCountdown, 1000);
+    updateClock();
+    updateCountdown();
   </script>
 </body>
 </html>
